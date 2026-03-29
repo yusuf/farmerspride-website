@@ -94,7 +94,7 @@ RUN chmod +x /startup.sh
 
 EXPOSE 80
 
-#HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=5 \
-#    CMD curl -fsS http://localhost/index.php || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=5 \
+    CMD curl -fsS http://localhost/index.php || exit 1
 
 CMD ["/startup.sh"]
