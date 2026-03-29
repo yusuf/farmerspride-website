@@ -156,7 +156,7 @@ title: "Farmer's Pride by AgroLink"
 description: "Agricultural products, practical support, and dependable service for growers across the Maldives."
 author:
   name: AgroLink Pvt Ltd
-  email: info@farmerspride.mv
+  email: info@agrolink.com.mv
 metadata:
   description: "Right products. Clear guidance. Reliable supply."
 ```
@@ -179,9 +179,9 @@ This is the **single source of truth** for all contact details and brand strings
 
 ```yaml
 # Contact details — client fills these in before launch
-phone: "+960 XXX-XXXX"
-whatsapp: "+960 XXX-XXXX"
-email: "info@farmerspride.mv"
+phone: "+960 777XXXX"
+whatsapp: "+960 777XXXX"
+email: "info@agrolink.com.mv"
 address: "Malé, Maldives"
 business_hours: "Mon–Fri 8:00am–5:00pm | Sat 8:00am–1:00pm"
 

@@ -37,7 +37,7 @@ if [ -n "$GRAV_ADMIN_USER" ] && [ -n "$GRAV_ADMIN_PASS" ]; then
         mkdir -p /var/www/html/user/accounts
         HASHED=$(php -r "echo password_hash('${GRAV_ADMIN_PASS}', PASSWORD_DEFAULT);")
         cat > "$ACCOUNT_FILE" << EOF2
-email: ${GRAV_ADMIN_EMAIL:-admin@farmerspride.mv}
+email: ${GRAV_ADMIN_EMAIL:-admin@agrolink.com.mv}
 fullname: Administrator
 title: Admin
 state: enabled

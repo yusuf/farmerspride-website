@@ -88,7 +88,7 @@ Pots, trays, growing media, substrate, and practical supplies for planting, prop
 ### 6. Irrigation & Accessories
 Drip systems, sprinklers, hose fittings, and related irrigation accessories. Efficient watering systems make a measurable difference to growing outcomes.
 
-**Notice (amber):** Coming Soon — Contact us for lead times.
+**Notice (AgroLink Blue):** Coming Soon — Contact us for lead times.
 
 **Subcategories:**
 - Drip Irrigation Systems

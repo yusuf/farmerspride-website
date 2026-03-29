@@ -16,7 +16,7 @@ services:
     environment:
       - GRAV_ADMIN_USER=${GRAV_ADMIN_USER:-admin}
       - GRAV_ADMIN_PASS=${GRAV_ADMIN_PASS:-changeme123}
-      - GRAV_ADMIN_EMAIL=${GRAV_ADMIN_EMAIL:-admin@farmerspride.mv}
+      - GRAV_ADMIN_EMAIL=${GRAV_ADMIN_EMAIL:-admin@agrolink.com.mv}
     restart: unless-stopped
 
 volumes:

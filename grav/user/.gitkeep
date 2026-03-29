@@ -1,0 +1,4 @@
+# This directory is populated by Claude Code during the build session (Phase C).
+# The .gitkeep file exists so Docker COPY does not fail before Claude Code has run.
+# See BRIEF.md for what Claude Code builds here.
+# Do not commit any files to this directory manually.

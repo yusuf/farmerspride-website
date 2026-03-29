@@ -19,6 +19,9 @@ grav/user/tmp/
 grav/user/accounts/
 grav/user/data/
 
+# Keep the placeholder so Docker COPY does not fail before Claude Code runs
+!grav/user/.gitkeep
+
 # Grav core — installed by Docker at build time, NEVER committed
 # If you accidentally download/extract Grav into this repo, these rules prevent committing core files
 grav/system/

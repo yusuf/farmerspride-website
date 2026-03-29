@@ -10,10 +10,10 @@ Right products. Clear guidance. Reliable supply.
 **Subheadline:**
 Agricultural products, practical support, and dependable service for growers across the Maldives.
 
-**Primary CTA button:**
+**Primary CTA button:** (Farmer's Pride Green — #2D6A2D)
 Call Now
 
-**Secondary CTA button:**
+**Secondary CTA button:** (AgroLink Blue — #1A8FC1, NOT amber)
 Browse Products
 
 **Trust line (below buttons):**
