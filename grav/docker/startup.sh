@@ -55,11 +55,17 @@ fi
 
 # ── Clear Grav cache on startup ────────────────────────────────────
 # php /var/www/html/bin/grav clear-cache 2>/dev/null || true
-# Clean state
+
+cd /var/www/html
+
+# Clean bad state
 rm -rf cache/* logs/*
 
-# Reinstall plugin
-bin/gpm install form -f || true
+# Install required plugins cleanly
+bin/gpm install form -f
+
+# Clear cache again
+bin/grav clearcache
 
 
 echo "Starting Farmer's Pride — Grav CMS"
