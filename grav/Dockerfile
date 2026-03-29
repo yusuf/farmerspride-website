@@ -20,34 +20,45 @@ RUN apk add --no-cache \
 
 # ── PHP extensions required by Grav ───────────────────────────────
 RUN docker-php-ext-configure gd \
-        --with-freetype \
-        --with-jpeg \
-        --with-webp \
+    --with-freetype \
+    --with-jpeg \
+    --with-webp \
     && docker-php-ext-install -j2 \
-        gd \
-        mbstring \
-        intl \
-        xml \
-        dom \
-        zip \
-        opcache
+    gd \
+    mbstring \
+    intl \
+    xml \
+    dom \
+    zip \
+    opcache
 
 # ── PHP configuration ──────────────────────────────────────────────
 COPY docker/php.ini /usr/local/etc/php/conf.d/custom.ini
 
 # ── Download and install Grav + Admin plugin ───────────────────────
-ARG GRAV_VERSION=1.7.46
+ARG GRAV_VERSION=1.7.49
 RUN curl -o /tmp/grav.zip -L \
-        "https://github.com/getgrav/grav/releases/download/${GRAV_VERSION}/grav-admin-v${GRAV_VERSION}.zip" \
+    "https://github.com/getgrav/grav/releases/download/${GRAV_VERSION}/grav-admin-v${GRAV_VERSION}.zip" \
     && unzip -q /tmp/grav.zip -d /tmp/ \
     && cp -r /tmp/grav-admin/. /var/www/html/ \
     && rm -rf /tmp/grav.zip /tmp/grav-admin \
     && chown -R www-data:www-data /var/www/html
 
+# ── Save a seed copy of plugins before user/ gets bind-mounted ─────
+RUN cp -r /var/www/html/user /var/www/html/user-image-seed \
+    && chown -R www-data:www-data /var/www/html/user-image-seed
+
 # ── Tailwind CSS standalone CLI ────────────────────────────────────
-RUN curl -sLo /usr/local/bin/tailwindcss \
-        https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64 \
-    && chmod +x /usr/local/bin/tailwindcss
+RUN ARCH="$(uname -m)" && \
+    if [ "$ARCH" = "x86_64" ]; then \
+    TAILWIND_URL="https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64-musl"; \
+    elif [ "$ARCH" = "aarch64" ]; then \
+    TAILWIND_URL="https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-arm64-musl"; \
+    else \
+    echo "Unsupported architecture: $ARCH"; exit 1; \
+    fi && \
+    curl -sLo /usr/local/bin/tailwindcss "$TAILWIND_URL" && \
+    chmod +x /usr/local/bin/tailwindcss
 
 # ── Nginx configuration ────────────────────────────────────────────
 COPY docker/nginx.conf /etc/nginx/nginx.conf
@@ -63,10 +74,10 @@ COPY --chown=www-data:www-data user/ /var/www/html/user/
 # ── Build Tailwind CSS ─────────────────────────────────────────────
 WORKDIR /var/www/html/user/themes/farmerspride
 RUN if [ -f tailwind.config.js ] && [ -f src/styles.css ]; then \
-        tailwindcss -i src/styles.css -o css/theme.css --minify && \
-        echo "Tailwind CSS compiled successfully"; \
+    tailwindcss -i src/styles.css -o css/theme.css --minify && \
+    echo "Tailwind CSS compiled successfully"; \
     else \
-        echo "Tailwind source not found — skipping CSS build (run Claude Code first)"; \
+    echo "Tailwind source not found — skipping CSS build (run Claude Code first)"; \
     fi
 
 # ── Permissions ────────────────────────────────────────────────────
@@ -74,19 +85,19 @@ RUN if [ -f tailwind.config.js ] && [ -f src/styles.css ]; then \
 # all of them on first install, and chmod on a missing dir fails the build
 WORKDIR /var/www/html
 RUN mkdir -p \
-        /var/www/html/backup \
-        /var/www/html/cache \
-        /var/www/html/images \
-        /var/www/html/logs \
-        /var/www/html/tmp \
+    /var/www/html/backup \
+    /var/www/html/cache \
+    /var/www/html/images \
+    /var/www/html/logs \
+    /var/www/html/tmp \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 775 \
-        /var/www/html/backup \
-        /var/www/html/cache \
-        /var/www/html/images \
-        /var/www/html/logs \
-        /var/www/html/tmp \
-        /var/www/html/user
+    /var/www/html/backup \
+    /var/www/html/cache \
+    /var/www/html/images \
+    /var/www/html/logs \
+    /var/www/html/tmp \
+    /var/www/html/user
 
 # ── Startup script ─────────────────────────────────────────────────
 COPY docker/startup.sh /startup.sh

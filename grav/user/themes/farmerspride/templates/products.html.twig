@@ -1,0 +1,162 @@
+{% extends 'partials/base.twig' %}
+
+{% set cfg = config.themes.farmerspride %}
+{% set wp  = cfg.whatsapp|replace({'+': '', ' ': '', '-': ''}) %}
+{% set h   = page.header %}
+
+{% block content %}
+
+{# ── Page hero ── #}
+<section class="page-hero" aria-label="Products page header">
+  <img src="{{ url('theme://images/hero-products.jpg') }}"
+       alt=""
+       class="hero-bg"
+       loading="eager"
+       onerror="this.style.display='none'">
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="page-hero-content">
+    <h1>{{ h.hero.heading }}</h1>
+    <p>{{ h.hero.subheading }}</p>
+  </div>
+</section>
+
+{# ── Page introduction ── #}
+<section class="section" style="padding-bottom:2rem;" aria-labelledby="products-intro-heading">
+  <div class="container-site max-w-3xl text-center">
+    <h2 id="products-intro-heading" class="text-2xl md:text-3xl font-bold text-green-700 mb-4">{{ h.intro.heading }}</h2>
+    <p class="text-body mb-6" style="line-height:1.7;">{{ h.intro.body }}</p>
+    <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
+       class="btn btn-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true" style="width:16px;height:16px;margin-right:8px;">
+        <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
+      </svg>
+      {{ h.intro.cta }}
+    </a>
+  </div>
+</section>
+
+{# ── 7 Category sections ── #}
+<div aria-label="Product categories">
+  {% for cat in h.categories %}
+
+  <section class="category-section" aria-labelledby="cat-{{ loop.index }}-heading">
+    <div class="container-site">
+      <div class="flex flex-col {% if loop.index is even %}md:flex-row-reverse{% else %}md:flex-row{% endif %} gap-8 md:gap-12 items-center">
+
+        {# Image #}
+        <div class="w-full md:w-5/12 flex-shrink-0">
+          <div class="category-section-img rounded-lg overflow-hidden">
+            <img src="{{ url('theme://images/categories/' ~ cat.img) }}"
+                 alt="{{ cat.name }}"
+                 class="w-full h-full object-cover"
+                 loading="lazy"
+                 onerror="this.parentElement.style.backgroundColor='#E8F5E8'; this.style.display='none';">
+          </div>
+        </div>
+
+        {# Content #}
+        <div class="w-full md:w-7/12">
+
+          {# Coming soon notice — irrigation only #}
+          {% if cat.coming_soon %}
+          <div class="coming-soon-notice mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true" style="width:16px;height:16px;flex-shrink:0;">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4m0 4h.01"/>
+            </svg>
+            {{ cat.coming_soon_notice }}
+          </div>
+          {% endif %}
+
+          <h2 id="cat-{{ loop.index }}-heading"
+              class="text-2xl md:text-3xl font-bold text-green-700 mb-3">{{ cat.name }}</h2>
+          <p class="text-body mb-5" style="line-height:1.7;max-width:52ch;">{{ cat.desc }}</p>
+
+          {# Subcategory pills #}
+          <div class="mb-6" aria-label="Subcategories">
+            {% for sub in cat.subcategories %}
+            <span class="subcategory-pill">{{ sub }}</span>
+            {% endfor %}
+          </div>
+
+          {# CTA buttons #}
+          <div class="flex flex-col sm:flex-row gap-3">
+            {% if cat.advisory %}
+              {# Advisory: Call + WhatsApp only #}
+              <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
+                 class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true" style="width:16px;height:16px;margin-right:8px;">
+                  <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
+                </svg>
+                {{ cat.cta_primary }}
+              </a>
+              <a href="https://wa.me/{{ wp }}"
+                 class="btn btn-secondary"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                {{ cat.cta_secondary }}
+              </a>
+            {% else %}
+              {# All other categories #}
+              <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
+                 class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true" style="width:16px;height:16px;margin-right:8px;">
+                  <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
+                </svg>
+                {{ cat.cta_primary }}
+              </a>
+              <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
+                 class="btn btn-outline-green">
+                {{ cat.cta_secondary }}
+              </a>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endfor %}
+</div>
+
+{# ── Bottom CTA band ── #}
+{% set cta = h.cta_band %}
+<section class="cta-band" aria-labelledby="products-cta-heading">
+  <img src="{{ url('theme://images/cta-bg.jpg') }}"
+       alt=""
+       class="cta-band-bg"
+       loading="lazy"
+       onerror="this.style.display='none'">
+  <div class="cta-band-content container-site">
+    <h2 id="products-cta-heading">{{ cta.heading }}</h2>
+    <p>{{ cta.body }}</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
+         class="btn btn-outline">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true" style="width:16px;height:16px;margin-right:8px;">
+          <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
+        </svg>
+        Call Now
+      </a>
+      <a href="https://wa.me/{{ wp }}"
+         class="btn btn-whatsapp"
+         target="_blank"
+         rel="noopener noreferrer">
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

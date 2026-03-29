@@ -1,0 +1,38 @@
+name: Farmer's Pride
+version: 1.0.0
+description: "Farmer's Pride by AgroLink — Agricultural supply website for the Maldives"
+icon: leaf
+author:
+  name: AgroLink Pvt Ltd
+  email: info@agrolink.com.mv
+license: Proprietary
+
+form:
+  validation: loose
+  fields:
+    phone:
+      type: text
+      label: Phone Number
+      placeholder: "+960 777XXXX"
+    whatsapp:
+      type: text
+      label: WhatsApp Number
+      placeholder: "+960 777XXXX"
+    email:
+      type: text
+      label: Email Address
+      placeholder: "info@agrolink.com.mv"
+    address:
+      type: text
+      label: Address
+      placeholder: "Malé, Maldives"
+    business_hours:
+      type: text
+      label: Business Hours
+      placeholder: "Mon–Fri 8:00am–5:00pm | Sat 8:00am–1:00pm"
+    tagline:
+      type: text
+      label: Tagline
+    trust_line:
+      type: text
+      label: Trust Line

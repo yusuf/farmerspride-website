@@ -1,0 +1,8 @@
+pages:
+  theme: farmerspride
+cache:
+  enabled: true
+debugger:
+  enabled: false
+languages:
+  supported: [en]

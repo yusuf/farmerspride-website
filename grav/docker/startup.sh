@@ -1,18 +1,12 @@
 #!/bin/bash
 set -e
 
-# ── PHP-FPM unix socket setup ──────────────────────────────────────
-mkdir -p /var/run/php-fpm
-chown www-data:www-data /var/run/php-fpm
-
+# ── PHP-FPM setup ──────────────────────────────────────────────────
 cat > /usr/local/etc/php-fpm.d/www.conf << 'EOF'
 [www]
 user = www-data
 group = www-data
-listen = /var/run/php-fpm.sock
-listen.owner = www-data
-listen.group = nginx
-listen.mode = 0660
+listen = 127.0.0.1:9000
 pm = dynamic
 pm.max_children = 20
 pm.start_servers = 4
@@ -28,8 +22,26 @@ for dir in backup cache images logs tmp; do
     chmod -R 775 /var/www/html/$dir
 done
 
+# ── Seed plugins from image into mounted user/ (first run only) ────
+# The bind mount hides /var/www/html/user at runtime. On first boot,
+# copy the plugins that were baked into the image so admin works
+# without any manual `docker cp`.
+PLUGINS_DIR="/var/www/html/user/plugins"
+SEED_DIR="/var/www/html/user-image-seed/plugins"
+
+if [ -d "$SEED_DIR" ]; then
+    mkdir -p "$PLUGINS_DIR"
+    for plugin in "$SEED_DIR"/*/; do
+        plugin_name=$(basename "$plugin")
+        if [ ! -d "$PLUGINS_DIR/$plugin_name" ]; then
+            echo "Seeding plugin: $plugin_name"
+            cp -r "$plugin" "$PLUGINS_DIR/$plugin_name"
+        fi
+    done
+    chown -R www-data:www-data "$PLUGINS_DIR"
+fi
+
 # ── Create Grav admin account from environment variables ──────────
-# Set GRAV_ADMIN_USER, GRAV_ADMIN_PASS, GRAV_ADMIN_EMAIL in Coolify
 if [ -n "$GRAV_ADMIN_USER" ] && [ -n "$GRAV_ADMIN_PASS" ]; then
     ACCOUNT_FILE="/var/www/html/user/accounts/${GRAV_ADMIN_USER}.yaml"
     if [ ! -f "$ACCOUNT_FILE" ]; then
@@ -55,7 +67,15 @@ EOF2
 fi
 
 # ── Clear Grav cache on startup ────────────────────────────────────
-php /var/www/html/bin/grav clearcache 2>/dev/null || true
+su -s /bin/sh www-data -c \
+    "php /var/www/html/bin/grav clearcache" 2>/dev/null || true
+
+chown -R www-data:www-data \
+    /var/www/html/cache \
+    /var/www/html/tmp \
+    /var/www/html/logs \
+    /var/www/html/images \
+    /var/www/html/backup
 
 echo "Starting Farmer's Pride — Grav CMS"
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf

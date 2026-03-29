@@ -1,0 +1,18 @@
+# Contact details — client fills these in before launch
+phone: "+960 777XXXX"
+whatsapp: "+960 777XXXX"
+email: "info@agrolink.com.mv"
+address: "Malé, Maldives"
+business_hours: "Mon–Fri 8:00am–5:00pm | Sat 8:00am–1:00pm"
+
+# Brand copy — do not change without approval
+tagline: "Right products. Clear guidance. Reliable supply."
+trust_line: "14 Years of Agricultural Supply in the Maldives"
+
+# Logo paths — relative to theme images/ directory
+logo_navbar: "images/logo-navbar.png"
+logo_footer: "images/logo-footer.png"
+logo_badge: "images/logo-badge.png"
+
+# Social / messaging
+whatsapp_display: "WhatsApp / Viber"
