@@ -54,7 +54,7 @@ EOF2
 fi
 
 # ── Clear Grav cache on startup ────────────────────────────────────
-php /var/www/html/bin/grav clear-cache 2>/dev/null || true
+# php /var/www/html/bin/grav clear-cache 2>/dev/null || true
 
 echo "Starting Farmer's Pride — Grav CMS"
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
