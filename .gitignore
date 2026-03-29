@@ -1,0 +1,36 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment — never commit credentials
+grav/.env
+*.env.local
+
+# Grav runtime — generated, not committed
+grav/user/cache/
+grav/user/logs/
+grav/user/tmp/
+grav/user/accounts/
+grav/user/data/
+
+# Grav core — installed by Docker at build time, NEVER committed
+# If you accidentally download/extract Grav into this repo, these rules prevent committing core files
+grav/system/
+grav/vendor/
+grav/index.php
+grav/.htaccess
+grav/bin/
+grav/cache/
+grav/images/
+grav/logs/
+grav/tmp/
+grav/backup/
+
+# Node (only used locally for Tailwind watch mode)
+node_modules/
