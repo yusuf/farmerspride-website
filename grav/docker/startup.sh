@@ -55,6 +55,12 @@ fi
 
 # ── Clear Grav cache on startup ────────────────────────────────────
 # php /var/www/html/bin/grav clear-cache 2>/dev/null || true
+# Clean state
+rm -rf cache/* logs/*
+
+# Reinstall plugin
+bin/gpm install form -f || true
+
 
 echo "Starting Farmer's Pride — Grav CMS"
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
