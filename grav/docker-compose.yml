@@ -9,7 +9,7 @@ services:
       - "8080:80"
     volumes:
       # Mount user/ so theme/template changes are live without rebuild
-      - ./user:/var/www/html/user
+      - ./user:/var/www/html/user:Z
       - grav-cache:/var/www/html/cache
       - grav-images:/var/www/html/images
       - grav-logs:/var/log
