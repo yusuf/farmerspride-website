@@ -102,10 +102,10 @@
       {% endfor %}
     </div>
 
-    {# Row 2 — last 3 cards, centred using justify-center #}
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6 mt-5 md:mt-6 md:w-3/4 md:mx-auto">
+    {# Row 2 — last 3 cards, same card width as row 1, flex-centred #}
+    <div class="category-row2 mt-5 md:mt-6">
       {% for cat in cs.categories|slice(4) %}
-      <div class="category-card">
+      <div class="category-card category-row2-card">
         <div class="category-card-img-wrap">
           <img src="{{ url('theme://images/categories/' ~ cat.img) }}"
                alt="{{ cat.name }}"
