@@ -10,15 +10,17 @@ form:
       active: 1
       fields:
 
-        # ── TAB 1: Page Content ─────────────────────────────────
-        content:
+        # ════════════════════════════════════════════════════════
+        # TAB 1 — CATEGORIES
+        # ════════════════════════════════════════════════════════
+        categories_tab:
           type: tab
-          title: Page Content
+          title: Categories
           fields:
 
             section_intro:
               type: section
-              title: Introduction
+              title: Page Introduction
               underline: true
 
             header.intro.heading:
@@ -40,17 +42,20 @@ form:
               type: section
               title: Product Categories
               underline: true
-              text: 'Each category appears as a section on the page.'
+              text: 'Each category becomes a section on the page. Drag to reorder.'
 
             header.categories:
               type: list
               label: Categories
               style: vertical
               btnLabel: Add Category
+              collapsed: true
+              collapsible: true
               fields:
                 .name:
                   type: text
                   label: Category Name
+                  placeholder: 'e.g. Fertilizers'
                   validate:
                     required: true
 
@@ -58,6 +63,7 @@ form:
                   type: textarea
                   label: Description
                   rows: 3
+                  placeholder: 'Describe what this category covers...'
 
                 .subcategories:
                   type: list
@@ -68,6 +74,7 @@ form:
                     .item:
                       type: text
                       label: Tag
+                      placeholder: 'e.g. Granular Fertilizers'
 
                 .cta_primary:
                   type: text
@@ -93,7 +100,7 @@ form:
                 .coming_soon_notice:
                   type: text
                   label: Coming Soon Notice Text
-                  placeholder: Coming Soon — Contact us for lead times.
+                  placeholder: 'Coming Soon — Contact us for lead times.'
 
                 .advisory:
                   type: toggle
@@ -106,50 +113,61 @@ form:
                   validate:
                     type: bool
 
-        # ── TAB 2: Products ─────────────────────────────────────
+        # ════════════════════════════════════════════════════════
+        # TAB 2 — PRODUCTS
+        # ════════════════════════════════════════════════════════
         products_tab:
           type: tab
           title: Products
           fields:
+
+            section_products_help:
+              type: section
+              title: Product Listing
+              underline: true
+              text: 'Add, edit, or remove individual products. Each product is assigned to a category and shown under that category section. Upload product images via the <strong>Media</strong> tab first, then select them here.'
 
             header.products:
               type: list
               label: Products
               style: vertical
               btnLabel: Add Product
+              collapsed: true
+              collapsible: true
               fields:
                 .name:
                   type: text
                   label: Product Name
+                  placeholder: 'e.g. NPK 20-20-20 Fertilizer'
                   validate:
                     required: true
 
                 .category:
                   type: select
                   label: Category
+                  placeholder: '— Select Category —'
                   validate:
                     required: true
                   options:
                     Fertilizers: Fertilizers
                     Seeds: Seeds
-                    Plant Protection: Plant Protection
-                    Plants & Landscaping: Plants & Landscaping
-                    Pots & Growing Supplies: Pots & Growing Supplies
-                    Irrigation & Accessories: Irrigation & Accessories
-                    Advisory & Support: Advisory & Support
+                    'Plant Protection': 'Plant Protection'
+                    'Plants & Landscaping': 'Plants & Landscaping'
+                    'Pots & Growing Supplies': 'Pots & Growing Supplies'
+                    'Irrigation & Accessories': 'Irrigation & Accessories'
+                    'Advisory & Support': 'Advisory & Support'
 
                 .desc:
                   type: textarea
                   label: Description
                   rows: 2
+                  placeholder: 'Brief description of the product...'
 
                 .img:
-                  type: filepicker
+                  type: pagemediaselect
                   label: Product Image
-                  folder: 'page://'
-                  preview_images: true
-                  accept:
-                    - image/*
+                  help: 'Upload images via the Media tab first, then select here.'
+                  placeholder: '— Select image —'
 
                 .price:
                   type: text
@@ -167,7 +185,9 @@ form:
                   validate:
                     type: bool
 
-        # ── TAB 3: Advanced ─────────────────────────────────────
+        # ════════════════════════════════════════════════════════
+        # TAB 3 — ADVANCED
+        # ════════════════════════════════════════════════════════
         advanced:
           type: tab
           title: Advanced
@@ -188,13 +208,9 @@ form:
               label: Subheading
 
             header.hero.img:
-              type: filepicker
+              type: pagemediaselect
               label: Background Image
-              folder: 'page://'
-              preview_images: true
-              accept:
-                - image/*
-              help: 'Leave blank to use the default hero image.'
+              help: 'Upload via Media tab. Leave blank to use default.'
 
             section_cta:
               type: section
@@ -220,10 +236,6 @@ form:
               placeholder: WhatsApp
 
             header.cta_band.img:
-              type: filepicker
+              type: pagemediaselect
               label: Background Image
-              folder: 'page://'
-              preview_images: true
-              accept:
-                - image/*
-              help: 'Leave blank to use the default CTA background image.'
+              help: 'Upload via Media tab. Leave blank to use default.'
