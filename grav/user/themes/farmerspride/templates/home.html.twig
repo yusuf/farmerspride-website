@@ -20,7 +20,7 @@
   <div class="hero-content">
     <div class="container-site w-full">
       <h1 class="hero-headline text-center">{{ h.hero.headline }}</h1>
-      <p class="hero-subheadline">{{ h.hero.subheadline }}</p>
+      <p class="hero-subheadline text-center">{{ h.hero.subheadline }}</p>
 
       <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center">
         <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
@@ -79,10 +79,33 @@
       <p class="mt-3" style="color:#6B6B6B;font-size:0.9375rem;">{{ cs.intro }}</p>
     </div>
 
-    {# All 7 cards — single grid; 5th item offset to col 2 on desktop to centre last 3 #}
+    {# Row 1 — first 4 cards #}
     <div class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
-      {% for cat in cs.categories %}
-      <div class="category-card{% if loop.index == 5 %} md:col-start-2{% endif %}">
+      {% for cat in cs.categories|slice(0, 4) %}
+      <div class="category-card">
+        <div class="category-card-img-wrap">
+          <img src="{{ url('theme://images/categories/' ~ cat.img) }}"
+               alt="{{ cat.name }}"
+               class="category-card-img"
+               loading="lazy"
+               onerror="this.parentElement.classList.add('img-missing'); this.style.display='none';">
+        </div>
+        <div class="category-card-content">
+          <h3 class="category-card-title">{{ cat.name }}</h3>
+          <p class="category-card-desc">{{ cat.desc }}</p>
+          <a href="{{ page.find('/products').url ?? '/products' }}"
+             class="btn btn-primary btn-sm category-card-btn">
+            View Products
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {# Row 2 — last 3 cards, centred using justify-center #}
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6 mt-5 md:mt-6 md:w-3/4 md:mx-auto">
+      {% for cat in cs.categories|slice(4) %}
+      <div class="category-card">
         <div class="category-card-img-wrap">
           <img src="{{ url('theme://images/categories/' ~ cat.img) }}"
                alt="{{ cat.name }}"
