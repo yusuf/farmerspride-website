@@ -10,29 +10,64 @@ license: Proprietary
 form:
   validation: loose
   fields:
+
+    section_contact:
+      type: section
+      title: Contact Details
+      underline: true
+      text: 'These values are used site-wide in the navbar, footer, and all contact buttons.'
+
     phone:
       type: text
       label: Phone Number
       placeholder: "+960 777XXXX"
+      help: 'Used for all Call Now buttons across the site.'
+
     whatsapp:
       type: text
-      label: WhatsApp Number
+      label: WhatsApp / Viber Number
       placeholder: "+960 777XXXX"
+      help: 'Full number with country code, no spaces. e.g. +9607771234'
+
+    whatsapp_display:
+      type: text
+      label: WhatsApp Display Label
+      placeholder: "WhatsApp / Viber"
+
     email:
       type: text
       label: Email Address
       placeholder: "info@agrolink.com.mv"
+
+    section_footer:
+      type: section
+      title: Footer
+      underline: true
+
+    tagline:
+      type: text
+      label: Brand Tagline
+      placeholder: 'Right products. Clear guidance. Reliable supply.'
+      help: 'Shown in footer below the logo.'
+
+    trust_line:
+      type: text
+      label: Trust Line
+      placeholder: '14 Years of Agricultural Supply in the Maldives'
+      help: 'Shown in footer below the tagline.'
+
     address:
       type: text
       label: Address
       placeholder: "Malé, Maldives"
+
     business_hours:
       type: text
       label: Business Hours
       placeholder: "Mon–Fri 8:00am–5:00pm | Sat 8:00am–1:00pm"
-    tagline:
+
+    footer_copyright:
       type: text
-      label: Tagline
-    trust_line:
-      type: text
-      label: Trust Line
+      label: Copyright Text
+      placeholder: 'AgroLink Pvt Ltd. All rights reserved.'
+      help: 'The current year is added automatically before this text.'

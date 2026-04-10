@@ -1,0 +1,207 @@
+title: Home Page
+'@extends':
+    type: default
+    context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+
+        # ════════════════════════════════════════════════════════
+        # TAB 1 — HERO
+        # ════════════════════════════════════════════════════════
+        hero_tab:
+          type: tab
+          title: Hero
+          fields:
+
+            section_hero_content:
+              type: section
+              title: Hero Content
+              underline: true
+
+            header.hero.headline:
+              type: text
+              label: Headline
+              placeholder: 'Right products. Clear guidance. Reliable supply.'
+
+            header.hero.subheadline:
+              type: text
+              label: Subheadline
+              placeholder: 'Agricultural products, practical support...'
+
+            header.hero.trust_line:
+              type: text
+              label: Trust Line (bottom bar)
+              placeholder: 'Trusted by farmers, resorts, and professionals across the Maldives.'
+
+            header.hero.cta_primary:
+              type: text
+              label: Primary Button Label
+              placeholder: Call Now
+
+            header.hero.cta_secondary:
+              type: text
+              label: Secondary Button Label
+              placeholder: Browse Products
+
+            header.hero.img:
+              type: pagemediaselect
+              label: Background Image
+              help: 'Upload via Media tab. Leave blank to use default.'
+
+            section_trust_strip:
+              type: section
+              title: Trust Strip
+              underline: true
+              text: 'The icon strip shown below the hero. Drag to reorder.'
+
+            header.trust_strip:
+              type: list
+              label: Trust Items
+              style: vertical
+              btnLabel: Add Item
+              collapsed: true
+              collapsible: true
+              fields:
+                .label:
+                  type: text
+                  label: Label
+                  placeholder: 'e.g. 14 Years of Experience'
+                  validate:
+                    required: true
+
+        # ════════════════════════════════════════════════════════
+        # TAB 2 — PRODUCTS SECTION
+        # ════════════════════════════════════════════════════════
+        products_tab:
+          type: tab
+          title: Products Section
+          fields:
+
+            section_cat_info:
+              type: section
+              title: Product Categories Section
+              underline: true
+              text: 'Category cards are pulled automatically from the Products page. Edit categories and their images there. Only the section heading, intro text, and card button label are set here.'
+
+            header.categories_section.heading:
+              type: text
+              label: Section Heading
+              placeholder: Our Products
+
+            header.categories_section.intro:
+              type: text
+              label: Intro Text
+              placeholder: 'Everything you need to grow...'
+
+            header.categories_section.card_cta:
+              type: text
+              label: Card Button Label
+              placeholder: View Products
+
+        # ════════════════════════════════════════════════════════
+        # TAB 3 — WHY CHOOSE
+        # ════════════════════════════════════════════════════════
+        why_tab:
+          type: tab
+          title: Why Choose
+          fields:
+
+            section_why:
+              type: section
+              title: Why Choose Us
+              underline: true
+
+            header.why_choose.heading:
+              type: text
+              label: Heading
+              placeholder: 'Not just a supplier. An advisor you can call.'
+
+            header.why_choose.points:
+              type: list
+              label: Points
+              style: vertical
+              btnLabel: Add Point
+              collapsed: true
+              collapsible: true
+              fields:
+                .item:
+                  type: text
+                  label: Point
+                  placeholder: 'e.g. We help you choose the right product...'
+
+        # ════════════════════════════════════════════════════════
+        # TAB 4 — SERVICES SECTION
+        # ════════════════════════════════════════════════════════
+        services_tab:
+          type: tab
+          title: Services Section
+          fields:
+
+            section_svc_info:
+              type: section
+              title: Services Snapshot
+              underline: true
+              text: 'Service cards are pulled automatically from the Services & Support page. Edit the services there. Only the section label, heading, and CTA button are set here.'
+
+            header.services_snapshot.label:
+              type: text
+              label: Section Label (small text above heading)
+              placeholder: Support
+
+            header.services_snapshot.heading:
+              type: text
+              label: Section Heading
+              placeholder: More than products
+
+            header.services_snapshot.cta:
+              type: text
+              label: CTA Button Label
+              placeholder: View All Services
+
+        # ════════════════════════════════════════════════════════
+        # TAB 5 — CTA BAND
+        # ════════════════════════════════════════════════════════
+        cta_tab:
+          type: tab
+          title: CTA Band
+          fields:
+
+            section_cta:
+              type: section
+              title: Call-to-Action Band
+              underline: true
+
+            header.cta_band.heading:
+              type: text
+              label: Heading
+              placeholder: 'Need the right product for your crop or project?'
+
+            header.cta_band.body:
+              type: text
+              label: Body Text
+              placeholder: 'Call us directly for fast advice...'
+
+            header.cta_band.cta_call:
+              type: text
+              label: Call Button Label
+              placeholder: Call Now
+
+            header.cta_band.cta_whatsapp:
+              type: text
+              label: WhatsApp Button Label
+              placeholder: WhatsApp Us
+
+            header.cta_band.cta_email:
+              type: text
+              label: Email Button Label
+              placeholder: Email Us
+
+            header.cta_band.img:
+              type: pagemediaselect
+              label: Background Image
+              help: 'Upload via Media tab. Leave blank to use default.'
