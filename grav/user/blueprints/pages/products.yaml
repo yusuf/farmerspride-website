@@ -1,0 +1,116 @@
+title: Products Page
+'@extends':
+    type: default
+    context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+
+        content:
+          type: tab
+          title: Products
+          fields:
+
+            header.intro.heading:
+              type: text
+              label: Section Heading
+              placeholder: Our Products
+              ordering@: 1
+
+            header.intro.body:
+              type: textarea
+              label: Introduction Text
+              rows: 3
+              ordering@: 2
+
+            section_products:
+              type: section
+              title: Product Items
+              underline: true
+              ordering@: 3
+
+            header.products:
+              type: list
+              label: Products
+              style: vertical
+              btnLabel: Add Product
+              ordering@: 4
+              fields:
+                .name:
+                  type: text
+                  label: Product Name
+                  placeholder: 'e.g. NPK 20-20-20 Fertilizer'
+                  validate:
+                    required: true
+
+                .category:
+                  type: select
+                  label: Category
+                  validate:
+                    required: true
+                  options:
+                    Fertilizers: Fertilizers
+                    Seeds: Seeds
+                    Plant Protection: Plant Protection
+                    Plants & Landscaping: Plants & Landscaping
+                    Pots & Growing Supplies: Pots & Growing Supplies
+                    Irrigation & Accessories: Irrigation & Accessories
+                    Advisory & Support: Advisory & Support
+
+                .desc:
+                  type: textarea
+                  label: Description
+                  rows: 2
+                  placeholder: 'Brief product description...'
+
+                .img:
+                  type: text
+                  label: Image Filename
+                  placeholder: 'e.g. npk-fertilizer.jpg'
+                  help: 'Upload the image via Page Media, then enter the filename here.'
+
+                .price:
+                  type: text
+                  label: Price (optional)
+                  placeholder: 'e.g. MVR 150 / bag'
+
+                .available:
+                  type: toggle
+                  label: In Stock
+                  highlight: 1
+                  default: 1
+                  options:
+                    1: 'Yes'
+                    0: 'No'
+                  validate:
+                    type: bool
+
+        advanced:
+          type: tab
+          title: Advanced
+          fields:
+            overrides:
+              type: section
+              title: Page Overrides
+              underline: true
+
+            header.hero.heading:
+              type: text
+              label: Hero Heading
+              placeholder: Our Products
+
+            header.hero.subheading:
+              type: text
+              label: Hero Subheading
+
+            header.cta_band.heading:
+              type: text
+              label: CTA Band Heading
+
+            header.cta_band.body:
+              type: text
+              label: CTA Band Body

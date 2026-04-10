@@ -83,6 +83,72 @@
             {% endfor %}
           </div>
 
+          {# Products grid for this category #}
+          {% set cat_products = [] %}
+          {% for p in h.products|default([]) %}
+            {% if p.category == cat.name %}
+              {% set cat_products = cat_products|merge([p]) %}
+            {% endif %}
+          {% endfor %}
+          {% if cat_products|length > 0 %}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+            {% for p in cat_products %}
+            <div class="product-item">
+              {% if p.img %}
+              <img src="{{ url('page://02.products/' ~ p.img) }}"
+                   alt="{{ p.name }}"
+                   class="product-item-img"
+                   loading="lazy"
+                   onerror="this.style.display='none'">
+              {% endif %}
+              <div class="product-item-body">
+                <div class="product-item-name">{{ p.name }}</div>
+                {% if p.desc %}<p class="product-item-desc">{{ p.desc }}</p>{% endif %}
+                <div class="product-item-footer">
+                  {% if p.price %}<span class="product-item-price">{{ p.price }}</span>{% endif %}
+                  {% if p.available == false %}
+                  <span class="product-item-badge out">Out of Stock</span>
+                  {% else %}
+                  <span class="product-item-badge in">In Stock</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          {# Products grid for this category #}
+          {% set cat_products = [] %}
+          {% for p in h.products|default([]) %}
+            {% if p.category == cat.name %}
+              {% set cat_products = cat_products|merge([p]) %}
+            {% endif %}
+          {% endfor %}
+          {% if cat_products|length > 0 %}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+            {% for p in cat_products %}
+            <div class="product-item">
+              {% if p.img %}
+              <img src="{{ url(page.path ~ "/" ~ p.img) }}"
+                   alt="{{ p.name }}"
+                   class="product-item-img"
+                   loading="lazy"
+                   onerror="this.style.display="none"">
+              {% endif %}
+              <div class="product-item-body">
+                <div class="product-item-name">{{ p.name }}</div>
+                {% if p.desc %}<p class="product-item-desc">{{ p.desc }}</p>{% endif %}
+                <div class="product-item-footer">
+                  {% if p.price %}<span class="product-item-price">{{ p.price }}</span>{% endif %}
+                  {% if p.available == false %}<span class="product-item-badge out">Out of Stock</span>{% else %}<span class="product-item-badge in">In Stock</span>{% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+
           {# CTA buttons #}
           <div class="flex flex-col sm:flex-row gap-3">
             {% if cat.advisory %}
