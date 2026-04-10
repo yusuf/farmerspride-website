@@ -13,7 +13,7 @@
 }
 
 @utility card {
-  @apply bg-white overflow-hidden;
+  @apply bg-white;
   border-radius: 0.75rem;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   transition: box-shadow 0.2s ease;
@@ -76,7 +76,7 @@
 
   /* ── Cards ───────────────────────────────────────────────── */
   .card {
-    @apply bg-white overflow-hidden;
+    @apply bg-white;
     border-radius: 0.75rem;
     box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -113,6 +113,7 @@
 
   /* ── Category card image ─────────────────────────────────── */
   .category-card-img-wrap {
+    border-radius: 0.75rem 0.75rem 0 0;
     height: 180px;
     overflow: hidden;
     position: relative;
