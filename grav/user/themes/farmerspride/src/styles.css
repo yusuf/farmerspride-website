@@ -8,7 +8,7 @@
 @utility btn {
   @apply inline-flex items-center justify-center font-semibold rounded-lg transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2;
   padding: 0.75rem 1.5rem;
-  min-height: 44px;
+  min-height: 40px;
   white-space: nowrap;
 }
 
@@ -57,7 +57,7 @@
   .btn {
     @apply inline-flex items-center justify-center font-semibold rounded-lg transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2;
     padding: 0.75rem 1.5rem;
-    min-height: 44px;
+    min-height: 40px;
     white-space: nowrap;
   }
   .btn-primary          { @apply btn bg-green-700 text-white focus:ring-green-700; }
@@ -71,7 +71,7 @@
   .btn-whatsapp         { @apply btn text-white focus:ring-green-700; background-color: #25D366; }
   .btn-whatsapp:hover   { background-color: #1da851; }
   .btn-pill             { border-radius: 9999px; }
-  .btn-sm               { padding: 0.5rem 1.125rem; font-size: 0.875rem; min-height: 36px; }
+  .btn-sm               { padding: 0.4375rem 1rem; font-size: 0.875rem; min-height: 0; line-height: 1.4; }
   .btn-lg               { padding: 0.875rem 2rem; font-size: 1.0625rem; }
 
   /* ── Cards ───────────────────────────────────────────────── */
