@@ -424,10 +424,24 @@
 
   /* ── Product items (within category sections) ───────────── */
   .product-list {
+    display: grid;
+    grid-template-columns: 1fr;
     border: 1px solid #E8E4DC;
     border-radius: 0.625rem;
     overflow: hidden;
     margin-bottom: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    .product-list {
+      grid-template-columns: 1fr 1fr;
+    }
+    /* right column items get a left border instead of relying on position */
+    .product-item:nth-child(odd) { border-right: 1px solid #E8E4DC; }
+    /* remove bottom border on last two items when in 2-col layout */
+    .product-item:nth-last-child(-n+2):nth-child(odd),
+    .product-item:nth-last-child(-n+2):nth-child(odd) ~ .product-item {
+      border-bottom: none;
+    }
   }
   .product-item {
     display: flex;
