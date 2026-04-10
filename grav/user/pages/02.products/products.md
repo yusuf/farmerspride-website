@@ -113,210 +113,245 @@ cta_band:
 products:
 
   - name: "NPK 20-20-20 All-Purpose Fertilizer"
+    img: "npk-fertilizer.jpg"
     category: "Fertilizers"
     desc: "Balanced granular fertilizer for vegetables, fruits, and ornamentals."
     price: "MVR 180 / kg"
     available: true
 
   - name: "Urea 46% Nitrogen"
+    img: "urea-nitrogen.jpg"
     category: "Fertilizers"
     desc: "High-nitrogen granular fertilizer for leafy vegetables and fast vegetative growth."
     price: "MVR 120 / kg"
     available: true
 
   - name: "Organic Compost Fertilizer"
+    img: "organic-compost.jpg"
     category: "Fertilizers"
     desc: "100% organic compost blend to improve soil structure and feed plants naturally."
     price: "MVR 95 / bag"
     available: true
 
   - name: "Calcium Nitrate"
+    img: "calcium-nitrate.jpg"
     category: "Fertilizers"
     desc: "Soluble calcium and nitrogen supplement. Prevents blossom-end rot in tomatoes and peppers."
     price: "MVR 160 / kg"
     available: true
 
   - name: "Foliar Micronutrient Spray"
+    img: "foliar-spray.jpg"
     category: "Fertilizers"
     desc: "Complete trace element mix with iron, zinc, manganese, and boron. Apply as foliar spray."
     price: "MVR 220 / 500ml"
     available: true
 
   - name: "Cherry Tomato Seeds F1 Hybrid"
+    img: "cherry-tomato-seeds.jpg"
     category: "Seeds"
     desc: "High-yield cherry tomato variety suited to tropical growing conditions. 50 seeds per pack."
     price: "MVR 85 / pack"
     available: true
 
   - name: "Chilli Pepper Seeds Hot Mix"
+    img: "chilli-seeds.jpg"
     category: "Seeds"
     desc: "Mixed hot chilli varieties including bird eye and cayenne. Good germination in warm climates."
     price: "MVR 70 / pack"
     available: true
 
   - name: "Spinach Seeds Tropical Variety"
+    img: "spinach-seeds.jpg"
     category: "Seeds"
     desc: "Heat-tolerant spinach variety adapted for year-round growing in the Maldives."
     price: "MVR 60 / pack"
     available: true
 
   - name: "Basil Seeds Sweet and Thai Mix"
+    img: "basil-seeds.jpg"
     category: "Seeds"
     desc: "Popular herb varieties for kitchen gardens and resort herb plots. Fast-germinating."
     price: "MVR 55 / pack"
     available: true
 
   - name: "Long Bean Seeds"
+    img: "long-bean-seeds.jpg"
     category: "Seeds"
     desc: "Vigorous climbing variety with high yields. Ideal for trellis growing in tropical gardens."
     price: "MVR 65 / pack"
     available: true
 
   - name: "Chlorpyrifos 50% EC Insecticide"
+    img: "chlorpyrifos.jpg"
     category: "Plant Protection"
     desc: "Broad-spectrum insecticide for controlling aphids, caterpillars, and soil insects."
     price: "MVR 195 / 500ml"
     available: true
 
   - name: "Mancozeb 80% WP Fungicide"
+    img: "mancozeb-fungicide.jpg"
     category: "Plant Protection"
     desc: "Protective fungicide for leaf spot, blight, and downy mildew on vegetables and fruits."
     price: "MVR 175 / 250g"
     available: true
 
   - name: "Neem Oil Spray Organic"
+    img: "neem-oil.jpg"
     category: "Plant Protection"
     desc: "Natural pest and disease control. Safe for edible plants. Controls mites, aphids, and fungal issues."
     price: "MVR 150 / 500ml"
     available: true
 
   - name: "Glyphosate 41% Herbicide"
+    img: "glyphosate.jpg"
     category: "Plant Protection"
     desc: "Non-selective herbicide for clearing weeds before planting. Not for use on active crops."
     price: "MVR 130 / 500ml"
     available: true
 
   - name: "Imidacloprid Systemic Insecticide"
+    img: "imidacloprid.jpg"
     category: "Plant Protection"
     desc: "Systemic insecticide effective against whitefly, thrips, and scale insects."
     price: "MVR 210 / 100ml"
     available: true
 
   - name: "Bougainvillea Seedlings Mixed Colours"
+    img: "bougainvillea.jpg"
     category: "Plants & Landscaping"
     desc: "Hardy ornamental climbing plant. Ideal for resort fencing, archways, and garden borders."
     price: "MVR 120 / plant"
     available: true
 
   - name: "Coconut Palm Seedlings"
+    img: "coconut-palm.jpg"
     category: "Plants & Landscaping"
     desc: "Local variety coconut palm seedlings. Well-rooted and ready for transplanting."
     price: "MVR 350 / plant"
     available: true
 
   - name: "Croton Potted Plants"
+    img: "croton-plant.jpg"
     category: "Plants & Landscaping"
     desc: "Vibrant ornamental foliage plant in a range of colour variations. Low maintenance."
     price: "MVR 180 / pot"
     available: true
 
   - name: "Heliconia Rhizomes"
+    img: "heliconia.jpg"
     category: "Plants & Landscaping"
     desc: "Tropical statement plant popular in resort landscaping. Striking orange and red bracts."
     price: "MVR 280 / rhizome"
     available: false
 
   - name: "Turf Grass Lawn Grade"
+    img: "turf-grass.jpg"
     category: "Plants & Landscaping"
     desc: "Sod rolls for resort lawns and garden ground cover. Salt-tolerant variety available."
     price: "Contact for quote"
     available: true
 
   - name: "Black Nursery Pots 10L"
+    img: "nursery-pots.jpg"
     category: "Pots & Growing Supplies"
     desc: "Standard 10-litre nursery pots. Durable UV-treated plastic. Pack of 10."
     price: "MVR 95 / pack"
     available: true
 
   - name: "Seedling Trays 72 Cell"
+    img: "seedling-trays.jpg"
     category: "Pots & Growing Supplies"
     desc: "72-cell plug trays for seed starting and propagation. Reusable, BPA-free plastic."
     price: "MVR 45 / tray"
     available: true
 
   - name: "Coco Peat Growing Medium 5kg"
+    img: "coco-peat.jpg"
     category: "Pots & Growing Supplies"
     desc: "Compressed coco peat block. Expands to 60-70L. Excellent water retention and drainage."
     price: "MVR 140 / block"
     available: true
 
   - name: "Perlite 3L Bag"
+    img: "perlite.jpg"
     category: "Pots & Growing Supplies"
     desc: "Horticultural-grade perlite for improving drainage and aeration in potting mixes."
     price: "MVR 75 / bag"
     available: true
 
   - name: "Hanging Basket Planters 30cm"
+    img: "hanging-baskets.jpg"
     category: "Pots & Growing Supplies"
     desc: "Decorative hanging baskets with coconut fibre liner. Suitable for outdoor and resort use."
     price: "MVR 165 / basket"
     available: true
 
   - name: "Drip Irrigation Starter Kit"
+    img: "drip-kit.jpg"
     category: "Irrigation & Accessories"
     desc: "Complete drip kit for up to 20 plants. Includes mainline, drippers, stakes, and connectors."
     price: "MVR 420 / kit"
     available: true
 
   - name: "16mm Mainline Irrigation Pipe 50m"
+    img: "mainline-pipe.jpg"
     category: "Irrigation & Accessories"
     desc: "UV-stabilised PE mainline pipe for drip systems. Sold in 50m rolls."
     price: "MVR 310 / roll"
     available: true
 
   - name: "Adjustable Micro Sprinkler Heads"
+    img: "micro-sprinklers.jpg"
     category: "Irrigation & Accessories"
     desc: "360 degree adjustable micro sprinklers for raised beds and pot irrigation. Pack of 10."
     price: "MVR 185 / pack"
     available: true
 
   - name: "Digital Irrigation Timer"
+    img: "irrigation-timer.jpg"
     category: "Irrigation & Accessories"
     desc: "Programmable hose timer with daily and weekly scheduling. Battery-powered, weather-resistant."
     price: "MVR 580 / unit"
     available: true
 
   - name: "Hose Fittings Assortment Kit"
+    img: "hose-fittings.jpg"
     category: "Irrigation & Accessories"
     desc: "Assorted connectors, elbows, tees, and end caps for 16mm and 20mm irrigation systems."
     price: "MVR 220 / kit"
     available: true
 
   - name: "Crop Nutrition Planning"
+    img: "crop-nutrition.jpg"
     category: "Advisory & Support"
     desc: "We assess your crop type and growing conditions and recommend the right fertilizer schedule."
     price: "Free with order"
     available: true
 
   - name: "Pest and Disease Identification"
+    img: "pest-id.jpg"
     category: "Advisory & Support"
     desc: "Send us a photo or describe the symptoms. We identify the problem and recommend the right treatment."
     price: "Free"
     available: true
 
   - name: "Irrigation System Design"
+    img: "irrigation-design.jpg"
     category: "Advisory & Support"
     desc: "Layout planning and product selection for small to medium drip or sprinkler irrigation setups."
     price: "Free with purchase"
     available: true
 
   - name: "Resort Landscaping Consultation"
+    img: "landscaping-consult.jpg"
     category: "Advisory & Support"
     desc: "On-site or remote consultation for resort planting projects. Plant selection, layout, and supply."
     price: "Contact for details"
     available: true
 
   - name: "After-Sales Follow-Up"
+    img: "after-sales.jpg"
     category: "Advisory & Support"
     desc: "We follow up after your purchase to make sure the product is working as expected."
     price: "Included"
