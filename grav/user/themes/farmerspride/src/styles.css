@@ -177,7 +177,7 @@
   @media (min-width: 1024px) { .hero-content { min-height: 520px; } }
 
   .hero-headline {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2rem, 5vw, 3.5rem); text-align: center; margin-left: auto; margin-right: auto;
     font-weight: 800; line-height: 1.1; color: #fff;
     max-width: 56rem; letter-spacing: -0.01em;
     text-shadow: 0 2px 12px rgba(0,0,0,0.3);
