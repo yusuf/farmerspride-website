@@ -1,0 +1,130 @@
+title: Services & Support Page
+'@extends':
+    type: default
+    context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+
+        # ════════════════════════════════════════════════════════
+        # TAB 1 — SERVICES
+        # ════════════════════════════════════════════════════════
+        services_tab:
+          type: tab
+          title: Services
+          fields:
+
+            section_intro:
+              type: section
+              title: Page Introduction
+              underline: true
+
+            header.intro:
+              type: textarea
+              label: Introduction Text
+              rows: 3
+              placeholder: 'Our service does not stop at the sale...'
+
+            section_services:
+              type: section
+              title: Service Cards
+              underline: true
+              text: 'Each entry appears as a card on the page. Drag to reorder.'
+
+            header.services:
+              type: list
+              label: Services
+              style: vertical
+              btnLabel: Add Service
+              collapsed: true
+              collapsible: true
+              fields:
+                .title:
+                  type: text
+                  label: Service Title
+                  placeholder: 'e.g. Product Guidance'
+                  validate:
+                    required: true
+
+                .body:
+                  type: textarea
+                  label: Description
+                  rows: 4
+                  placeholder: 'Describe what this service covers...'
+
+        # ════════════════════════════════════════════════════════
+        # TAB 2 — CTA BAND
+        # ════════════════════════════════════════════════════════
+        cta_tab:
+          type: tab
+          title: CTA Band
+          fields:
+
+            section_cta:
+              type: section
+              title: Contact Prompt Band
+              underline: true
+              text: 'The call-to-action band at the bottom of the page.'
+
+            header.contact_prompt.heading:
+              type: text
+              label: Heading
+              placeholder: 'Have a specific requirement?'
+
+            header.contact_prompt.body:
+              type: textarea
+              label: Body Text
+              rows: 2
+              placeholder: 'Tell us what you are growing...'
+
+            header.contact_prompt.cta_primary:
+              type: text
+              label: Call Button Label
+              placeholder: Call Us Now
+
+            header.contact_prompt.cta_secondary:
+              type: text
+              label: WhatsApp Button Label
+              placeholder: 'WhatsApp / Viber'
+
+            header.contact_prompt.cta_tertiary:
+              type: text
+              label: Email Button Label
+              placeholder: Email Inquiry
+
+            header.contact_prompt.img:
+              type: pagemediaselect
+              label: Background Image
+              help: 'Upload via Media tab. Leave blank to use default.'
+
+        # ════════════════════════════════════════════════════════
+        # TAB 3 — ADVANCED
+        # ════════════════════════════════════════════════════════
+        advanced:
+          type: tab
+          title: Advanced
+          fields:
+
+            section_hero:
+              type: section
+              title: Hero Banner
+              underline: true
+
+            header.hero.heading:
+              type: text
+              label: Heading
+              placeholder: 'Services & Support'
+
+            header.hero.subheading:
+              type: text
+              label: Subheading
+              placeholder: 'Our service does not stop at the sale.'
+
+            header.hero.img:
+              type: pagemediaselect
+              label: Background Image
+              help: 'Upload via Media tab. Leave blank to use default.'
