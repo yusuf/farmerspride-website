@@ -10,40 +10,117 @@ form:
       active: 1
       fields:
 
+        # ── TAB 1: Page Content ─────────────────────────────────
         content:
           type: tab
-          title: Products
+          title: Page Content
           fields:
+
+            section_intro:
+              type: section
+              title: Introduction
+              underline: true
 
             header.intro.heading:
               type: text
-              label: Section Heading
+              label: Heading
               placeholder: Our Products
-              ordering@: 1
 
             header.intro.body:
               type: textarea
-              label: Introduction Text
+              label: Body Text
               rows: 3
-              ordering@: 2
 
-            section_products:
+            header.intro.cta:
+              type: text
+              label: CTA Button Label
+              placeholder: Call for Advice
+
+            section_categories:
               type: section
-              title: Product Items
+              title: Product Categories
               underline: true
-              ordering@: 3
+              text: 'Each category appears as a section on the page.'
+
+            header.categories:
+              type: list
+              label: Categories
+              style: vertical
+              btnLabel: Add Category
+              fields:
+                .name:
+                  type: text
+                  label: Category Name
+                  validate:
+                    required: true
+
+                .desc:
+                  type: textarea
+                  label: Description
+                  rows: 3
+
+                .subcategories:
+                  type: list
+                  label: Subcategory Tags
+                  btnLabel: Add Tag
+                  style: compact
+                  fields:
+                    .item:
+                      type: text
+                      label: Tag
+
+                .cta_primary:
+                  type: text
+                  label: Primary Button Label
+                  placeholder: View / Order
+
+                .cta_secondary:
+                  type: text
+                  label: Secondary Button Label
+                  placeholder: Ask for Guidance
+
+                .coming_soon:
+                  type: toggle
+                  label: Coming Soon
+                  highlight: 0
+                  default: 0
+                  options:
+                    1: 'Yes'
+                    0: 'No'
+                  validate:
+                    type: bool
+
+                .coming_soon_notice:
+                  type: text
+                  label: Coming Soon Notice Text
+                  placeholder: Coming Soon — Contact us for lead times.
+
+                .advisory:
+                  type: toggle
+                  label: Advisory Only (no order button)
+                  highlight: 0
+                  default: 0
+                  options:
+                    1: 'Yes'
+                    0: 'No'
+                  validate:
+                    type: bool
+
+        # ── TAB 2: Products ─────────────────────────────────────
+        products_tab:
+          type: tab
+          title: Products
+          fields:
 
             header.products:
               type: list
               label: Products
               style: vertical
               btnLabel: Add Product
-              ordering@: 4
               fields:
                 .name:
                   type: text
                   label: Product Name
-                  placeholder: 'e.g. NPK 20-20-20 Fertilizer'
                   validate:
                     required: true
 
@@ -65,17 +142,18 @@ form:
                   type: textarea
                   label: Description
                   rows: 2
-                  placeholder: 'Brief product description...'
 
                 .img:
-                  type: text
-                  label: Image Filename
-                  placeholder: 'e.g. npk-fertilizer.jpg'
-                  help: 'Upload the image via Page Media, then enter the filename here.'
+                  type: filepicker
+                  label: Product Image
+                  folder: 'page://'
+                  preview_images: true
+                  accept:
+                    - image/*
 
                 .price:
                   type: text
-                  label: Price (optional)
+                  label: Price
                   placeholder: 'e.g. MVR 150 / bag'
 
                 .available:
@@ -89,28 +167,63 @@ form:
                   validate:
                     type: bool
 
+        # ── TAB 3: Advanced ─────────────────────────────────────
         advanced:
           type: tab
           title: Advanced
           fields:
-            overrides:
+
+            section_hero:
               type: section
-              title: Page Overrides
+              title: Hero Banner
               underline: true
 
             header.hero.heading:
               type: text
-              label: Hero Heading
+              label: Heading
               placeholder: Our Products
 
             header.hero.subheading:
               type: text
-              label: Hero Subheading
+              label: Subheading
+
+            header.hero.img:
+              type: filepicker
+              label: Background Image
+              folder: 'page://'
+              preview_images: true
+              accept:
+                - image/*
+              help: 'Leave blank to use the default hero image.'
+
+            section_cta:
+              type: section
+              title: CTA Band
+              underline: true
 
             header.cta_band.heading:
               type: text
-              label: CTA Band Heading
+              label: Heading
 
             header.cta_band.body:
               type: text
-              label: CTA Band Body
+              label: Body Text
+
+            header.cta_band.cta_call:
+              type: text
+              label: Call Button Label
+              placeholder: Call Now
+
+            header.cta_band.cta_whatsapp:
+              type: text
+              label: WhatsApp Button Label
+              placeholder: WhatsApp
+
+            header.cta_band.img:
+              type: filepicker
+              label: Background Image
+              folder: 'page://'
+              preview_images: true
+              accept:
+                - image/*
+              help: 'Leave blank to use the default CTA background image.'

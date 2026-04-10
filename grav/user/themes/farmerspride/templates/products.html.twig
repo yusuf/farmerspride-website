@@ -7,8 +7,9 @@
 {% block content %}
 
 {# ── Page hero ── #}
+{% set hero_img = h.hero.img ? page.media[h.hero.img].url|default(url('page://02.products/' ~ h.hero.img)) : url('theme://images/hero-products.jpg') %}
 <section class="page-hero" aria-label="Products page header">
-  <img src="{{ url('theme://images/hero-products.jpg') }}"
+  <img src="{{ hero_img }}"
        alt=""
        class="hero-bg"
        loading="eager"
@@ -32,115 +33,116 @@
            aria-hidden="true" style="width:16px;height:16px;margin-right:8px;">
         <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
       </svg>
-      {{ h.intro.cta }}
+      {{ h.intro.cta|default('Call for Advice') }}
     </a>
   </div>
 </section>
 
-{# ── 7 Category sections ── #}
+{# ── Category sections ── #}
 <div aria-label="Product categories">
   {% for cat in h.categories %}
 
   <section class="category-section" aria-labelledby="cat-{{ loop.index }}-heading">
     <div class="container-site">
-      <div>
+      <div class="w-full">
 
-        {# Content #}
-        <div class="w-full">
+        {# Coming soon notice #}
+        {% if cat.coming_soon %}
+        <div class="coming-soon-notice mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               aria-hidden="true" style="width:16px;height:16px;flex-shrink:0;">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4m0 4h.01"/>
+          </svg>
+          {{ cat.coming_soon_notice }}
+        </div>
+        {% endif %}
 
-          {# Coming soon notice — irrigation only #}
-          {% if cat.coming_soon %}
-          <div class="coming-soon-notice mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 aria-hidden="true" style="width:16px;height:16px;flex-shrink:0;">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 8v4m0 4h.01"/>
-            </svg>
-            {{ cat.coming_soon_notice }}
-          </div>
-          {% endif %}
+        <h2 id="cat-{{ loop.index }}-heading"
+            class="text-2xl md:text-3xl font-bold text-green-700 mb-3">{{ cat.name }}</h2>
+        <p class="text-body mb-5" style="line-height:1.7;max-width:52ch;">{{ cat.desc }}</p>
 
-          <h2 id="cat-{{ loop.index }}-heading"
-              class="text-2xl md:text-3xl font-bold text-green-700 mb-3">{{ cat.name }}</h2>
-          <p class="text-body mb-5" style="line-height:1.7;max-width:52ch;">{{ cat.desc }}</p>
-
-          {# Subcategory pills #}
-          <div class="mb-6" aria-label="Subcategories">
-            {% for sub in cat.subcategories %}
-            <span class="subcategory-pill">{{ sub }}</span>
-            {% endfor %}
-          </div>
-
-          {# Products grid for this category #}
-          {% set cat_products = [] %}
-          {% for p in h.products|default([]) %}
-            {% if p.category == cat.name %}
-              {% set cat_products = cat_products|merge([p]) %}
-            {% endif %}
+        {# Subcategory pills — supports both old string array and new {item:...} format #}
+        {% if cat.subcategories %}
+        <div class="mb-6" aria-label="Subcategories">
+          {% for sub in cat.subcategories %}
+            {% set label = sub.item is defined ? sub.item : sub %}
+            {% if label %}<span class="subcategory-pill">{{ label }}</span>{% endif %}
           {% endfor %}
-          {% if cat_products|length > 0 %}
-          <div class="product-list">
-            {% for p in cat_products %}
-            <div class="product-item">
-              {% if p.img %}
-              <img src="{{ url('theme://images/products/' ~ p.img) }}"
-                   alt="{{ p.name }}"
-                   class="product-item-img"
-                   loading="lazy"
-                   onerror="this.style.display="none"">
-              {% endif %}
-              <div class="product-item-body">
-                <div class="product-item-name">{{ p.name }}</div>
-                {% if p.desc %}<p class="product-item-desc">{{ p.desc }}</p>{% endif %}
-                <div class="product-item-footer">
-                  {% if p.price %}<span class="product-item-price">{{ p.price }}</span>{% endif %}
-                  {% if p.available == false %}<span class="product-item-badge out">Out of Stock</span>{% else %}<span class="product-item-badge in">In Stock</span>{% endif %}
-                </div>
+        </div>
+        {% endif %}
+
+        {# Products for this category #}
+        {% set cat_products = [] %}
+        {% for p in h.products|default([]) %}
+          {% if p.category == cat.name %}
+            {% set cat_products = cat_products|merge([p]) %}
+          {% endif %}
+        {% endfor %}
+        {% if cat_products|length > 0 %}
+        <div class="product-list">
+          {% for p in cat_products %}
+          <div class="product-item">
+            {% if p.img %}
+            {% set prod_img = page.media[p.img].url|default(url('theme://images/products/' ~ p.img)) %}
+            <img src="{{ prod_img }}"
+                 alt="{{ p.name }}"
+                 class="product-item-img"
+                 loading="lazy"
+                 onerror="this.style.display='none'">
+            {% endif %}
+            <div class="product-item-body">
+              <div class="product-item-name">{{ p.name }}</div>
+              {% if p.desc %}<p class="product-item-desc">{{ p.desc }}</p>{% endif %}
+              <div class="product-item-footer">
+                {% if p.price %}<span class="product-item-price">{{ p.price }}</span>{% endif %}
+                {% if p.available == false %}
+                  <span class="product-item-badge out">Out of Stock</span>
+                {% else %}
+                  <span class="product-item-badge in">In Stock</span>
+                {% endif %}
               </div>
             </div>
-            {% endfor %}
           </div>
-          {% endif %}
-
-          {# CTA buttons #}
-          <div class="flex flex-col sm:flex-row gap-3">
-            {% if cat.advisory %}
-              {# Advisory: Call + WhatsApp only #}
-              <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
-                 class="btn btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     aria-hidden="true" style="width:16px;height:16px;margin-right:8px;">
-                  <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
-                </svg>
-                {{ cat.cta_primary }}
-              </a>
-              <a href="https://wa.me/{{ wp }}"
-                 class="btn btn-secondary"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                {{ cat.cta_secondary }}
-              </a>
-            {% else %}
-              {# All other categories #}
-              <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
-                 class="btn btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     aria-hidden="true" style="width:16px;height:16px;margin-right:8px;">
-                  <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
-                </svg>
-                {{ cat.cta_primary }}
-              </a>
-              <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
-                 class="btn btn-outline-green">
-                {{ cat.cta_secondary }}
-              </a>
-            {% endif %}
-          </div>
-
+          {% endfor %}
         </div>
+        {% endif %}
+
+        {# CTA buttons #}
+        <div class="flex flex-col sm:flex-row gap-3">
+          {% if cat.advisory %}
+            <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
+               class="btn btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" style="width:16px;height:16px;margin-right:8px;">
+                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
+              </svg>
+              {{ cat.cta_primary|default('Call for Advice') }}
+            </a>
+            <a href="https://wa.me/{{ wp }}"
+               class="btn btn-secondary"
+               target="_blank" rel="noopener noreferrer">
+              {{ cat.cta_secondary|default('WhatsApp Us') }}
+            </a>
+          {% else %}
+            <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
+               class="btn btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true" style="width:16px;height:16px;margin-right:8px;">
+                <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
+              </svg>
+              {{ cat.cta_primary|default('View / Order') }}
+            </a>
+            <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}"
+               class="btn btn-outline-green">
+              {{ cat.cta_secondary|default('Ask for Guidance') }}
+            </a>
+          {% endif %}
+        </div>
+
       </div>
     </div>
   </section>
@@ -150,8 +152,9 @@
 
 {# ── Bottom CTA band ── #}
 {% set cta = h.cta_band %}
+{% set cta_img = cta.img ? page.media[cta.img].url|default(url('page://02.products/' ~ cta.img)) : url('theme://images/cta-bg.jpg') %}
 <section class="cta-band" aria-labelledby="products-cta-heading">
-  <img src="{{ url('theme://images/cta-bg.jpg') }}"
+  <img src="{{ cta_img }}"
        alt=""
        class="cta-band-bg"
        loading="lazy"
@@ -167,13 +170,12 @@
              aria-hidden="true" style="width:16px;height:16px;margin-right:8px;">
           <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/>
         </svg>
-        Call Now
+        {{ cta.cta_call|default('Call Now') }}
       </a>
       <a href="https://wa.me/{{ wp }}"
          class="btn btn-whatsapp"
-         target="_blank"
-         rel="noopener noreferrer">
-        WhatsApp
+         target="_blank" rel="noopener noreferrer">
+        {{ cta.cta_whatsapp|default('WhatsApp') }}
       </a>
     </div>
   </div>
