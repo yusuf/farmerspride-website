@@ -116,10 +116,21 @@ form:
               title: Why Choose Us
               underline: true
 
+            header.why_choose.label:
+              type: text
+              label: Section Label
+              placeholder: 'Why AgroLink'
+
             header.why_choose.heading:
               type: text
               label: Heading
               placeholder: 'Not just a supplier. An advisor you can call.'
+
+            header.why_choose.intro:
+              type: textarea
+              label: Intro Text
+              rows: 3
+              placeholder: 'Explain why customers choose AgroLink...'
 
             header.why_choose.points:
               type: list
@@ -129,10 +140,28 @@ form:
               collapsed: true
               collapsible: true
               fields:
-                .item:
+                .title:
                   type: text
-                  label: Point
-                  placeholder: 'e.g. We help you choose the right product...'
+                  label: Point Title
+                  placeholder: 'e.g. Product Guidance'
+                  validate:
+                    required: true
+                .body:
+                  type: textarea
+                  label: Supporting Copy
+                  rows: 3
+                  placeholder: 'Explain what this benefit means for the customer.'
+                .icon:
+                  type: select
+                  label: Icon
+                  default: check
+                  highlight: check
+                  options:
+                    check: Checkmark
+                    bag: Supply briefcase
+                    shield: Shield
+                    phone: Phone
+                    leaf: Leaf / growth
 
         # ════════════════════════════════════════════════════════
         # TAB 4 — SERVICES SECTION

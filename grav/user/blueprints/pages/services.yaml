@@ -23,6 +23,11 @@ form:
               title: Page Introduction
               underline: true
 
+            header.intro_heading:
+              type: text
+              label: Introduction Heading
+              placeholder: 'e.g. Practical Support at Every Step'
+
             header.intro:
               type: textarea
               label: Introduction Text
@@ -33,7 +38,18 @@ form:
               type: section
               title: Service Cards
               underline: true
-              text: 'Each entry appears as a card on the page. Drag to reorder.'
+              text: 'Each entry appears as a card. Upload an image via the Media tab first, then select it here. If no image is set, a green gradient is shown.'
+
+            header.services_title:
+              type: text
+              label: Services Section Title
+              placeholder: 'Support that goes beyond the sale'
+
+            header.services_subtitle:
+              type: textarea
+              label: Services Section Subtitle
+              rows: 2
+              placeholder: 'Every service points customers straight to a phone call or WhatsApp chat.'
 
             header.services:
               type: list
@@ -55,6 +71,11 @@ form:
                   label: Description
                   rows: 4
                   placeholder: 'Describe what this service covers...'
+
+                .img:
+                  type: pagemediaselect
+                  label: Card Image (optional)
+                  help: 'Upload via Media tab. Shown as the card header image.'
 
         # ════════════════════════════════════════════════════════
         # TAB 2 — CTA BAND

@@ -6,9 +6,134 @@
 
 {% block content %}
 
+{% set services_title = h.services_title|default('Support that goes beyond the sale') %}
+{% set services_subtitle = h.services_subtitle|default('Every service points customers straight to a phone call or WhatsApp chat.') %}
+
+<style>
+  .page-hero--services { min-height: 360px; }
+  @media (min-width: 768px) { .page-hero--services { min-height: 420px; } }
+  @media (min-width: 1024px) { .page-hero--services { min-height: 480px; } }
+  .page-hero--services .hero-overlay {
+    background: linear-gradient(135deg, rgba(7,20,7,0.92) 0%, rgba(26,74,26,0.6) 60%, rgba(26,74,26,0.4) 100%);
+  }
+  .page-hero--services .page-hero-content h1 { color: #fff; }
+
+  .svc-intro-band {
+    background: #F7FBF7;
+    border-bottom: 1px solid #E4EDE4;
+    padding: 2.75rem 1rem;
+    text-align: center;
+  }
+  .svc-intro-heading { font-size: 1.5rem; font-weight: 700; color: #1A4A1A; margin-bottom: 0.5rem; }
+  .svc-intro-body { font-size: 1rem; line-height: 1.75; color: #4A5A4A; margin: 0; }
+
+  .svc-section-head { text-align: center; margin-bottom: 2.75rem; }
+  .svc-section-title {
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    font-weight: 800;
+    color: #0F2810;
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.625rem;
+  }
+  .svc-section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2.75rem;
+    height: 3px;
+    background: #2D6A2D;
+    border-radius: 2px;
+  }
+  .svc-section-sub { font-size: 0.95rem; color: #5A6A5A; margin: 0.75rem auto 0; max-width: 40rem; }
+
+  .svc-services-section { padding: 3.75rem 1rem 4.25rem; background: #ffffff; }
+  .svc-services-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  .svc-service-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: #0f1f12;
+    box-shadow: 0 12px 45px rgba(10,31,10,0.25);
+    flex: 1 1 100%;
+    max-width: 360px;
+  }
+  @media (min-width: 640px) {
+    .svc-service-card { flex: 0 1 calc(50% - 1.5rem); }
+  }
+  @media (min-width: 1024px) {
+    .svc-service-card { flex: 0 1 calc(33.333% - 1.5rem); }
+  }
+
+  .svc-service-photo {
+    position: relative;
+    height: 190px;
+    background-size: cover;
+    background-position: center;
+  }
+  .svc-service-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0.15) 0%, rgba(10,10,10,0.55) 100%);
+  }
+  .svc-service-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .svc-service-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.75rem;
+    color: #ffffff;
+    background: linear-gradient(180deg, rgba(10,20,10,0.95) 0%, rgba(10,20,10,0.8) 70%, rgba(10,20,10,0.92) 100%);
+  }
+  @media (min-width: 1024px) { .svc-service-content { padding: 2.25rem; } }
+  .svc-service-number {
+    align-self: flex-start;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+  }
+  .svc-service-content h3 { font-size: 1.38rem; margin: 0; color: #fff; }
+  .svc-service-body { margin: 0; font-size: 0.97rem; line-height: 1.7; color: rgba(255,255,255,0.9); flex: 1; }
+  .svc-service-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .svc-service-ctas .btn {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    border-radius: 999px;
+    padding: 0.55rem 1.4rem;
+  }
+</style>
+
 {# ── Page hero ── #}
-{% set hero_img = h.hero.img ? page.media[h.hero.img].url|default(url('theme://images/hero-services.jpg')) : url('theme://images/hero-services.jpg') %}
-<section class="page-hero" aria-label="Services page header">
+{% set hero_media = h.hero.img and page.media[h.hero.img] ? page.media[h.hero.img] : (page.media.images|length ? (page.media.images|first) : null) %}
+{% set hero_img = hero_media ? hero_media.url : url('theme://images/hero-services.jpg') %}
+<section class="page-hero page-hero--services" aria-label="Services page header">
   <img src="{{ hero_img }}"
        alt=""
        class="hero-bg"
@@ -22,24 +147,47 @@
 </section>
 
 {# ── Introduction ── #}
-{% if h.intro %}
-<section class="section" style="padding-bottom:2rem;" aria-label="Services introduction">
-  <div class="container-site max-w-3xl text-center">
-    <p class="text-lg text-body" style="line-height:1.7;">{{ h.intro }}</p>
+{% if h.intro_heading or h.intro %}
+<section class="svc-intro-band" aria-label="Services introduction">
+  <div class="container-site" style="max-width:44rem;text-align:center;">
+    {% if h.intro_heading %}
+    <h2 class="svc-intro-heading">{{ h.intro_heading }}</h2>
+    {% endif %}
+    {% if h.intro %}
+    <p class="svc-intro-body">{{ h.intro }}</p>
+    {% endif %}
   </div>
 </section>
 {% endif %}
 
-{# ── Service cards ── #}
-<section class="section" style="padding-top:0;" aria-labelledby="services-list-heading">
-  <div class="container-site max-w-4xl">
-    <h2 id="services-list-heading" class="sr-only">Our Services</h2>
-    <div class="space-y-5">
+{# ── Service tiles ── #}
+<section class="svc-services-section" aria-labelledby="services-list-heading">
+  <div class="container-site">
+    <div class="svc-section-head">
+      <h2 id="services-list-heading" class="svc-section-title">{{ services_title }}</h2>
+      {% if services_subtitle %}
+      <p class="svc-section-sub">{{ services_subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="svc-services-grid">
       {% for svc in h.services %}
-      <div class="service-card">
-        <h2 class="text-xl font-bold text-dark mb-3">{{ svc.title }}</h2>
-        <p class="text-body" style="line-height:1.7;max-width:60ch;">{{ svc.body }}</p>
-      </div>
+        {% set svc_media = svc.img and page.media[svc.img] ? page.media[svc.img] : null %}
+        {% set svc_img = svc_media ? svc_media.url : url('theme://images/hero-services.jpg') %}
+        <article class="svc-service-card">
+          <div class="svc-service-photo">
+            <img src="{{ svc_img }}" alt="{{ svc.title }} service illustration" loading="lazy">
+          </div>
+          <div class="svc-service-content">
+            <span class="svc-service-number">{{ loop.index < 10 ? '0' ~ loop.index : loop.index }}</span>
+            <h3>{{ svc.title }}</h3>
+            <p class="svc-service-body">{{ svc.body }}</p>
+            <div class="svc-service-ctas">
+              <a href="tel:{{ cfg.phone|replace({' ': '', '-': ''}) }}" class="btn btn-primary btn-sm">Call Now</a>
+              <a href="https://wa.me/{{ wp }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">WhatsApp Us</a>
+            </div>
+          </div>
+        </article>
       {% endfor %}
     </div>
   </div>
@@ -47,7 +195,8 @@
 
 {# ── Contact prompt CTA band ── #}
 {% set cp = h.contact_prompt %}
-{% set cta_img = cp.img ? page.media[cp.img].url|default(url('theme://images/cta-bg.jpg')) : url('theme://images/cta-bg.jpg') %}
+{% set cp_media = cp.img and page.media[cp.img] ? page.media[cp.img] : (page.media.images|length ? (page.media.images|last) : null) %}
+{% set cta_img = cp_media ? cp_media.url : url('theme://images/cta-bg.jpg') %}
 <section class="cta-band" aria-labelledby="services-cta-heading">
   <img src="{{ cta_img }}"
        alt=""

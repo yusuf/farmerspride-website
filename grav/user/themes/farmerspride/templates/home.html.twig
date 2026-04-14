@@ -86,12 +86,13 @@
 
     <div class="text-center mb-10">
       <h2 id="categories-heading" class="section-title-ruled">{{ cs.heading }}</h2>
-      <p class="mt-3" style="color:#6B6B6B;font-size:0.9375rem;">{{ cs.intro }}</p>
+      <p class="mt-3" style="color:#6B6B6B;font-size:1rem;">{{ cs.intro }}</p>
     </div>
 
     {# Row 1 — first 4 cards #}
     <div class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
       {% for cat in categories|slice(0, 4) %}
+      {% set cat_slug = cat.name|lower|replace({' ': '-', '&': 'and', "'": '', '/': '-', '.': ''}) %}
       <div class="category-card">
         <div class="category-card-img-wrap">
           <img src="{{ url('theme://images/categories/' ~ cat.img) }}"
@@ -103,7 +104,7 @@
         <div class="category-card-content">
           <h3 class="category-card-title">{{ cat.name }}</h3>
           <p class="category-card-desc">{{ cat.desc }}</p>
-          <a href="{{ products_page.url ?? '/products' }}"
+          <a href="{{ (products_page.url ?? '/products') }}#cat-{{ cat_slug }}"
              class="btn btn-primary btn-sm category-card-btn">
             {{ cs.card_cta|default('View Products') }}
           </a>
@@ -115,6 +116,7 @@
     {# Row 2 — last 3 cards, centred #}
     <div class="category-row2 mt-5 md:mt-6">
       {% for cat in categories|slice(4) %}
+      {% set cat_slug = cat.name|lower|replace({' ': '-', '&': 'and', "'": '', '/': '-', '.': ''}) %}
       <div class="category-card category-row2-card">
         <div class="category-card-img-wrap">
           <img src="{{ url('theme://images/categories/' ~ cat.img) }}"
@@ -126,7 +128,7 @@
         <div class="category-card-content">
           <h3 class="category-card-title">{{ cat.name }}</h3>
           <p class="category-card-desc">{{ cat.desc }}</p>
-          <a href="{{ products_page.url ?? '/products' }}"
+          <a href="{{ (products_page.url ?? '/products') }}#cat-{{ cat_slug }}"
              class="btn btn-primary btn-sm category-card-btn">
             {{ cs.card_cta|default('View Products') }}
           </a>
@@ -139,49 +141,59 @@
 </section>
 
 {# ═══════════════════════════════════════════════════════════
-   SECTION 4 — WHY CHOOSE
+   SECTION 4 — WHY AGROLINK
 ═══════════════════════════════════════════════════════════ #}
-{% set wc = h.why_choose %}
-<section class="section-alt" aria-labelledby="why-heading" style="padding-top:3.5rem;padding-bottom:3.5rem;">
-  <div class="container-site" style="max-width:52rem;">
-    <div class="text-center mb-8">
-      <h2 id="why-heading" class="section-title-ruled">{{ wc.heading }}</h2>
+{% set why = h.why_choose %}
+{% if why %}
+<section class="section-alt why-agrolink-section" aria-labelledby="why-agrolink-heading">
+  <div class="container-site">
+    <div class="why-agrolink-head">
+      {% if why.label %}<span class="section-label">{{ why.label }}</span>{% endif %}
+      <h2 id="why-agrolink-heading" class="section-title-ruled">{{ why.heading|default('Why AgroLink') }}</h2>
+      {% if why.intro %}
+      <p class="why-agrolink-intro">{{ why.intro }}</p>
+      {% endif %}
     </div>
-    <ul style="list-style:none;padding:0;margin:0;">
-      {% for point in wc.points %}
-      <li class="why-choose-item">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-             aria-hidden="true" class="why-choose-icon">
-          <path d="M5 13l4 4L19 7"/>
-        </svg>
-        <span>{{ point.item is defined ? point.item : point }}</span>
-      </li>
+
+    {% set points = why.points ?? [] %}
+    {% if points %}
+    <ul class="why-point-list" role="list">
+      {% for point in points %}
+        {% set text = point.title ?? point.item %}
+        {% set detail = point.body %}
+        {% if text %}
+        <li class="why-point-item">
+          <span class="why-point-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </span>
+          <div class="why-point-copy">
+            <span class="why-point-title">{{ text }}</span>
+            {% if detail %}
+            <p>{{ detail }}</p>
+            {% endif %}
+          </div>
+        </li>
+        {% endif %}
       {% endfor %}
     </ul>
+    {% endif %}
   </div>
 </section>
+{% endif %}
 
-{# ═══════════════════════════════════════════════════════════
-   SECTION 5 — SERVICES SNAPSHOT (pulled from services page)
-═══════════════════════════════════════════════════════════ #}
-{% set ss = h.services_snapshot %}
-<section class="section" aria-labelledby="services-heading">
+{% set svc = h.services_snapshot %}
+<section class="section" aria-labelledby="homepage-services-link" style="padding-top:0;">
   <div class="container-site">
-    <div class="text-center mb-8">
-      <span class="section-label">{{ ss.label }}</span>
-      <h2 id="services-heading" class="section-title-ruled mt-1">{{ ss.heading }}</h2>
+    <div class="services-cta-head text-center">
+      {% if svc.label %}<span class="section-label">{{ svc.label }}</span>{% endif %}
+      {% if svc.heading %}<h2 id="homepage-services-link" class="section-title-ruled">{{ svc.heading }}</h2>{% endif %}
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-      {% for svc in services_list %}
-      <div class="service-card">
-        <h3 style="font-size:1rem;font-weight:700;color:#1A1A1A;margin-bottom:0.5rem;">{{ svc.title }}</h3>
-        <p style="font-size:0.875rem;color:#3D3D3D;line-height:1.6;">{{ svc.body }}</p>
-      </div>
-      {% endfor %}
-    </div>
-    <div class="text-center">
-      <a href="{{ services_page.url ?? '/services' }}" class="btn btn-outline-green">{{ ss.cta|default('View All Services') }}</a>
+    <div class="text-center mt-6">
+      <a href="{{ services_page.url ?? '/services' }}" class="btn btn-outline-green inline-flex justify-center">
+        {{ svc.cta|default('View Services & Support') }}
+      </a>
     </div>
   </div>
 </section>

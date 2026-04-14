@@ -1,0 +1,228 @@
+title: About Us Page
+'@extends':
+    type: default
+    context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+
+        # ════════════════════════════════════════════════════════
+        # TAB 1 — HERO & INTRO
+        # ════════════════════════════════════════════════════════
+        hero_tab:
+          type: tab
+          title: Hero & Intro
+          fields:
+
+            section_hero:
+              type: section
+              title: Hero Banner
+              underline: true
+
+            header.hero.heading:
+              type: text
+              label: Heading
+              placeholder: About Us
+
+            header.hero.subheading:
+              type: text
+              label: Subheading
+              placeholder: "About Farmer's Pride by AgroLink"
+
+            header.hero.img:
+              type: pagemediaselect
+              label: Background Image
+              help: 'Upload via Media tab. Leave blank to use default.'
+
+            section_intro:
+              type: section
+              title: Introduction
+              underline: true
+
+            header.intro_heading:
+              type: text
+              label: Intro Heading
+              placeholder: Our Story
+
+            header.intro:
+              type: textarea
+              label: Introduction Text
+              rows: 3
+              placeholder: "Farmer's Pride is the customer-facing brand of AgroLink..."
+
+            header.intro_img:
+              type: pagemediaselect
+              label: Intro Section Image (right column)
+              help: 'Shown alongside the introduction text. Upload via Media tab.'
+
+        # ════════════════════════════════════════════════════════
+        # TAB 2 — WHO WE ARE & HOW WE WORK
+        # ════════════════════════════════════════════════════════
+        who_tab:
+          type: tab
+          title: Who We Are
+          fields:
+
+            section_who:
+              type: section
+              title: Who We Are
+              underline: true
+
+            header.who_we_are.heading:
+              type: text
+              label: Heading
+              placeholder: Who we are
+
+            header.who_we_are.paragraphs:
+              type: list
+              label: Paragraphs
+              style: vertical
+              btnLabel: Add Paragraph
+              collapsed: true
+              collapsible: true
+              fields:
+                .item:
+                  type: textarea
+                  label: Paragraph
+                  rows: 3
+                  placeholder: 'Enter paragraph text...'
+
+            section_how:
+              type: section
+              title: How We Work
+              underline: true
+
+            header.how_we_work.heading:
+              type: text
+              label: Heading
+              placeholder: How we work
+
+            header.how_we_work.intro:
+              type: textarea
+              label: Intro Text
+              rows: 2
+              placeholder: 'Our approach is straightforward...'
+
+            header.how_we_work.points:
+              type: list
+              label: Points
+              style: vertical
+              btnLabel: Add Point
+              collapsed: true
+              collapsible: true
+              fields:
+                .title:
+                  type: text
+                  label: Point Title
+                  placeholder: 'e.g. Right products'
+                  validate:
+                    required: true
+                .desc:
+                  type: text
+                  label: Description
+                  placeholder: 'e.g. We stock what works in Maldivian conditions.'
+
+        # ════════════════════════════════════════════════════════
+        # TAB 3 — EXPERIENCE
+        # ════════════════════════════════════════════════════════
+        experience_tab:
+          type: tab
+          title: Experience
+          fields:
+
+            section_exp:
+              type: section
+              title: Built on Experience
+              underline: true
+
+            header.experience.heading:
+              type: text
+              label: Heading
+              placeholder: Built on experience
+
+            header.experience.paragraphs:
+              type: list
+              label: Paragraphs
+              style: vertical
+              btnLabel: Add Paragraph
+              collapsed: true
+              collapsible: true
+              fields:
+                .item:
+                  type: textarea
+                  label: Paragraph
+                  rows: 3
+
+            header.experience.trust_points:
+              type: list
+              label: Trust Points
+              style: vertical
+              btnLabel: Add Point
+              collapsed: true
+              collapsible: true
+              fields:
+                .item:
+                  type: text
+                  label: Point
+                  placeholder: 'e.g. 14 years of consistent supply in the Maldives'
+
+            section_stats:
+              type: section
+              title: Stat Boxes
+              underline: true
+              text: 'Optional decorative stat boxes shown below the experience section.'
+
+            header.experience.stats:
+              type: list
+              label: Stats
+              style: vertical
+              btnLabel: Add Stat
+              collapsed: true
+              collapsible: true
+              fields:
+                .value:
+                  type: text
+                  label: Value
+                  placeholder: 'e.g. 14'
+                .label:
+                  type: text
+                  label: Label
+                  placeholder: 'e.g. Years of Supply'
+
+        # ════════════════════════════════════════════════════════
+        # TAB 4 — BELIEF PANEL
+        # ════════════════════════════════════════════════════════
+        belief_tab:
+          type: tab
+          title: Belief Panel
+          fields:
+
+            section_belief:
+              type: section
+              title: Belief Statement Panel
+              underline: true
+
+            header.belief.label:
+              type: text
+              label: Label (small text above statement)
+              placeholder: Our Belief
+
+            header.belief.statement:
+              type: textarea
+              label: Statement
+              rows: 2
+              placeholder: 'We do not just sell products. We help you use them well.'
+
+            header.belief.cta_primary:
+              type: text
+              label: Primary Button Label
+              placeholder: Contact Us
+
+            header.belief.cta_secondary:
+              type: text
+              label: Secondary Button Label
+              placeholder: Browse Products

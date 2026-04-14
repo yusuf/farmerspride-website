@@ -1,0 +1,209 @@
+title: Contact Us Page
+'@extends':
+    type: default
+    context: blueprints://pages
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+
+        # ════════════════════════════════════════════════════════
+        # TAB 1 — HERO & INTRO
+        # ════════════════════════════════════════════════════════
+        hero_tab:
+          type: tab
+          title: Hero & Intro
+          fields:
+
+            section_hero:
+              type: section
+              title: Hero Banner
+              underline: true
+
+            header.hero.heading:
+              type: text
+              label: Heading
+              placeholder: Contact Us
+
+            header.hero.subheading:
+              type: text
+              label: Subheading
+              placeholder: 'Get in touch directly — phone is fastest.'
+
+            header.hero.img:
+              type: pagemediaselect
+              label: Background Image
+              help: 'Upload via Media tab. Leave blank to use default.'
+
+            section_intro:
+              type: section
+              title: Introduction
+              underline: true
+
+            header.intro:
+              type: textarea
+              label: Intro Text
+              rows: 2
+              placeholder: 'Get in touch directly for product inquiries...'
+
+        # ════════════════════════════════════════════════════════
+        # TAB 2 — CONTACT CHANNELS
+        # ════════════════════════════════════════════════════════
+        channels_tab:
+          type: tab
+          title: Channels
+          fields:
+
+            section_channels:
+              type: section
+              title: Contact Channels
+              underline: true
+              text: 'Each channel appears as a contact block. Type must be: phone, whatsapp, or email.'
+
+            header.contact_heading:
+              type: text
+              label: Left Column Heading
+              placeholder: Get in touch
+
+            header.channels:
+              type: list
+              label: Channels
+              style: vertical
+              btnLabel: Add Channel
+              collapsed: true
+              collapsible: true
+              fields:
+                .type:
+                  type: select
+                  label: Channel Type
+                  options:
+                    phone: Phone
+                    whatsapp: 'WhatsApp / Viber'
+                    email: Email
+                  validate:
+                    required: true
+                .heading:
+                  type: text
+                  label: Heading
+                  placeholder: 'e.g. Phone'
+                .desc:
+                  type: textarea
+                  label: Description
+                  rows: 3
+                  placeholder: 'Describe this contact channel...'
+                .cta:
+                  type: text
+                  label: Button Label
+                  placeholder: 'e.g. Call Now'
+
+        # ════════════════════════════════════════════════════════
+        # TAB 3 — LOCATIONS & MAPS
+        # ════════════════════════════════════════════════════════
+        locations_tab:
+          type: tab
+          title: Locations & Maps
+          fields:
+
+            section_locations:
+              type: section
+              title: Our Locations
+              underline: true
+              text: 'Each location appears as an address entry on the left column. If a Google Maps Embed URL is added, a map card is shown below the contact form. Maps are displayed side-by-side on desktop.'
+
+            header.locations_heading:
+              type: text
+              label: Map Section Heading
+              placeholder: Find Us
+
+            header.locations:
+              type: list
+              label: Locations
+              style: vertical
+              btnLabel: Add Location
+              collapsed: true
+              collapsible: true
+              fields:
+                .name:
+                  type: text
+                  label: Location Name
+                  placeholder: 'e.g. Malé Shop / Office'
+                  validate:
+                    required: true
+                .address:
+                  type: textarea
+                  label: Address
+                  rows: 2
+                  placeholder: 'e.g. H. Aagé Building, Boduthakurufaanu Magu, Malé'
+                .map_embed_url:
+                  type: text
+                  label: Google Maps Embed URL
+                  help: 'Go to Google Maps → Share → Embed a map → copy the src="..." value from the iframe code.'
+                  placeholder: 'https://www.google.com/maps/embed?pb=...'
+                .map_image:
+                  type: pagemediaselect
+                  label: Map Fallback Image
+                  help: 'Shown if no embed URL is provided. Upload via the Media tab.'
+
+        # ════════════════════════════════════════════════════════
+        # TAB 4 — FORM
+        # ════════════════════════════════════════════════════════
+        form_tab:
+          type: tab
+          title: Form
+          fields:
+
+            section_form:
+              type: section
+              title: Contact Form
+              underline: true
+
+            header.form.heading:
+              type: text
+              label: Form Heading
+              placeholder: Send us a message
+
+            header.form.subheading:
+              type: text
+              label: Form Subheading
+              placeholder: 'Or call us directly for a faster response.'
+
+            header.form.submit:
+              type: text
+              label: Submit Button Label
+              placeholder: Send Message
+
+        # ════════════════════════════════════════════════════════
+        # TAB 5 — CTA BAND
+        # ════════════════════════════════════════════════════════
+        cta_tab:
+          type: tab
+          title: CTA Band
+          fields:
+
+            section_cta:
+              type: section
+              title: Call-to-Action Band
+              underline: true
+
+            header.cta_band.heading:
+              type: text
+              label: Heading
+              placeholder: "Let's grow together."
+
+            header.cta_band.body:
+              type: text
+              label: Body Text
+              placeholder: 'Right products. Clear guidance. Reliable supply.'
+
+            header.cta_band.cta_call:
+              type: text
+              label: Call Button Label
+              placeholder: Call Now
+
+            header.cta_band.cta_whatsapp:
+              type: text
+              label: WhatsApp Button Label
+              placeholder: WhatsApp Us

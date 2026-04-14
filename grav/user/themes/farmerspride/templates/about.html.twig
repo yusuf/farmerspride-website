@@ -6,8 +6,9 @@
 {% block content %}
 
 {# ── Page hero ── #}
+{% set about_hero_img = h.hero.img ? page.media[h.hero.img].url|default(url('theme://images/hero-about.jpg')) : url('theme://images/hero-about.jpg') %}
 <section class="page-hero" aria-label="About page header">
-  <img src="{{ url('theme://images/hero-about.jpg') }}"
+  <img src="{{ about_hero_img }}"
        alt=""
        class="hero-bg"
        loading="eager"
@@ -19,42 +20,54 @@
   </div>
 </section>
 
-{# ── Introduction ── #}
-<section class="section" style="padding-bottom:2.5rem;" aria-label="Introduction">
-  <div class="container-site max-w-3xl text-center">
-    <p class="text-lg text-body" style="line-height:1.7;">{{ h.intro }}</p>
+{# ── Introduction — two-column with image ── #}
+{% set intro_img = h.intro_img ? page.media[h.intro_img].url|default(url('theme://images/hero-about.jpg')) : url('theme://images/hero-about.jpg') %}
+<section class="section about-intro-section" aria-label="Introduction">
+  <div class="container-site">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+      <div>
+        <h2 class="about-section-heading">{{ h.intro_heading|default('Our Story') }}</h2>
+        <p class="text-body" style="font-size:1.0625rem;line-height:1.8;">{{ h.intro }}</p>
+      </div>
+
+      <div class="about-photo-card" aria-hidden="true">
+        <img src="{{ intro_img }}"
+             alt=""
+             loading="lazy"
+             onerror="this.parentElement.style.display='none'">
+      </div>
+
+    </div>
   </div>
 </section>
 
 {# ── Two-column: Who we are / How we work ── #}
-<section class="section-alt" aria-labelledby="about-two-col-heading" style="padding-top:3rem;">
+<section class="section-alt" aria-labelledby="about-two-col-heading" style="padding-top:3rem;padding-bottom:3.5rem;">
   <div class="container-site">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
 
       {# Who we are #}
       <div>
-        <h2 id="about-two-col-heading" class="text-2xl font-bold text-green-700 mb-4">{{ h.who_we_are.heading }}</h2>
+        <h2 id="about-two-col-heading" class="about-section-heading">{{ h.who_we_are.heading }}</h2>
         {% for para in h.who_we_are.paragraphs %}
-        <p class="text-body mb-4" style="line-height:1.7;max-width:52ch;">{{ para }}</p>
+        <p class="text-body mb-4" style="line-height:1.75;">{{ para.item is defined ? para.item : para }}</p>
         {% endfor %}
       </div>
 
-      {# How we work #}
+      {# How we work — numbered cards grid #}
       <div>
-        <h2 class="text-2xl font-bold text-green-700 mb-3">{{ h.how_we_work.heading }}</h2>
+        <h2 class="about-section-heading">{{ h.how_we_work.heading }}</h2>
         <p class="text-body mb-5" style="line-height:1.7;">{{ h.how_we_work.intro }}</p>
-        <ul class="checklist space-y-3">
+        <div class="how-we-work-grid">
           {% for point in h.how_we_work.points %}
-          <li class="flex items-start gap-3">
-            <svg class="checklist-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                 fill="none" stroke="currentColor" stroke-width="2.5"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M5 13l4 4L19 7"/>
-            </svg>
-            <span><strong class="font-semibold text-dark">{{ point.title }}</strong> — {{ point.desc }}</span>
-          </li>
+          <div class="how-we-work-card">
+            <span class="how-we-work-num" aria-hidden="true">{{ loop.index }}</span>
+            <strong class="how-we-work-title">{{ point.title }}</strong>
+            <p class="how-we-work-desc">{{ point.desc }}</p>
+          </div>
           {% endfor %}
-        </ul>
+        </div>
       </div>
 
     </div>
@@ -68,28 +81,29 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start mb-10">
       <div>
-        <h2 id="experience-heading" class="text-2xl md:text-3xl font-bold text-green-700 mb-4">{{ exp.heading }}</h2>
+        <h2 id="experience-heading" class="about-section-heading" style="font-size:1.625rem;">{{ exp.heading }}</h2>
         {% for para in exp.paragraphs %}
-        <p class="text-body mb-4" style="line-height:1.7;max-width:52ch;">{{ para }}</p>
+        <p class="text-body mb-4" style="line-height:1.75;">{{ para.item is defined ? para.item : para }}</p>
         {% endfor %}
       </div>
       <div>
-        <ul class="checklist space-y-3">
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.875rem;">
           {% for point in exp.trust_points %}
-          <li class="flex items-start gap-3">
-            <svg class="checklist-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                 fill="none" stroke="currentColor" stroke-width="2.5"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;color:#3D3D3D;line-height:1.6;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true"
+                 style="flex-shrink:0;margin-top:0.15rem;width:1.125rem;height:1.125rem;color:#2D6A2D;">
               <path d="M5 13l4 4L19 7"/>
             </svg>
-            <span class="text-body">{{ point }}</span>
+            <span>{{ point.item is defined ? point.item : point }}</span>
           </li>
           {% endfor %}
         </ul>
       </div>
     </div>
 
-    {# Stat boxes — optional decorative elements #}
+    {# Stat boxes #}
     {% if exp.stats %}
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       {% for stat in exp.stats %}

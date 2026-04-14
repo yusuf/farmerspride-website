@@ -10,6 +10,8 @@ hero:
 
 intro: "Get in touch directly for product inquiries, availability, advice, and support. Phone is fastest."
 
+contact_heading: "Get in touch"
+
 channels:
   - type: phone
     heading: "Phone"
@@ -26,29 +28,25 @@ channels:
     desc: "For formal inquiries, quotations, project documentation, and purchase orders. Allow 1 business day for a response."
     cta: "Send Email"
 
+locations:
+  - name: "Malé Shop / Office"
+    address: "Malé, Maldives"
+    map_embed_url: "https://maps.google.com/maps?q=Male%2C%20Maldives&t=&z=13&ie=UTF8&iwloc=&output=embed"
+
+  - name: "Hulhumalé Shop"
+    address: "Hulhumalé, Maldives"
+    map_embed_url: "https://maps.google.com/maps?q=Hulhumale%2C%20Maldives&t=&z=13&ie=UTF8&iwloc=&output=embed"
+
+locations_heading: "Find Us"
+
 form:
   heading: "Send us a message"
   subheading: "Or call us directly for a faster response."
-  fields:
-    - name: name
-      label: "Name"
-      type: text
-      required: true
-    - name: phone
-      label: "Phone Number"
-      type: tel
-      required: false
-    - name: email
-      label: "Email Address"
-      type: email
-      required: false
-    - name: message
-      label: "Message"
-      type: textarea
-      required: true
   submit: "Send Message"
 
 cta_band:
   heading: "Let's grow together."
   body: "Right products. Clear guidance. Reliable supply."
+  cta_call: "Call Now"
+  cta_whatsapp: "WhatsApp Us"
 ---
