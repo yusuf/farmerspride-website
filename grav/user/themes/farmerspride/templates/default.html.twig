@@ -1,0 +1,24 @@
+{% extends 'partials/base.twig' %}
+
+{% set hero_title = page.header.hero.heading ?? page.title %}
+{% set hero_subtitle = page.header.hero.subheading ?? '' %}
+{% set hero_img = page.header.hero.img ? page.media[page.header.hero.img].url|default(url('theme://images/hero-bg.jpg')) : url('theme://images/hero-bg.jpg') %}
+
+{% block content %}
+  <section class="page-hero" aria-label="{{ hero_title|e }}">
+    <img src="{{ hero_img }}" alt="" class="hero-bg" loading="eager" onerror="this.style.display='none'">
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="page-hero-content">
+      <h1>{{ hero_title }}</h1>
+      {% if hero_subtitle %}<p>{{ hero_subtitle }}</p>{% endif %}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-site">
+      <div class="text-body" style="font-size:1.0625rem;line-height:1.8;">
+        {{ page.content|raw }}
+      </div>
+    </div>
+  </section>
+{% endblock %}
