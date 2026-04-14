@@ -65,6 +65,12 @@ form:
                   rows: 3
                   placeholder: 'Describe what this category covers...'
 
+                .image:
+                  type: pagemediaselect
+                  label: Category Image
+                  help: 'Upload via the Media tab. Shown on the Products page and on the Home page cards.'
+                  preview_images: true
+
                 .subcategories:
                   type: list
                   label: Subcategory Tags

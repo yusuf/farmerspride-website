@@ -6,6 +6,37 @@
 {% set map_locations = h.locations|default([]) %}
 
 {% block content %}
+<style>
+  .navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(15, 34, 15, 0.08);
+    box-shadow: 0 4px 18px rgba(7, 26, 7, 0.08);
+  }
+  .navbar-link {
+    color: #1f2a1f;
+    border-bottom-color: transparent;
+  }
+  .navbar-link:hover {
+    color: #2d6a2d;
+    border-bottom-color: rgba(45, 106, 45, 0.45);
+  }
+  .navbar-link.active {
+    color: #2d6a2d;
+    border-bottom-color: #2d6a2d;
+  }
+  .navbar-contact-link {
+    color: #1f2a1f;
+  }
+  .navbar-contact-link:hover {
+    color: #2d6a2d;
+  }
+  .navbar-contact-divider {
+    color: rgba(15, 34, 15, 0.3);
+  }
+  .navbar-hamburger {
+    color: #1f2a1f;
+  }
+</style>
 
 {# ── Page hero ── #}
 {% set contact_hero_img = h.hero.img ? page.media[h.hero.img].url|default(url('theme://images/hero-contact.jpg')) : url('theme://images/hero-contact.jpg') %}
@@ -263,7 +294,13 @@
 
 {# ── Bottom CTA band ── #}
 {% set cta = h.cta_band %}
+{% set cta_img = cta.img ? page.media[cta.img].url|default(url('theme://images/cta-bg.jpg')) : url('theme://images/cta-bg.jpg') %}
 <section class="cta-band" aria-labelledby="contact-cta-heading">
+  <img src="{{ cta_img }}"
+       alt=""
+       class="cta-band-bg"
+       loading="lazy"
+       onerror="this.style.display='none'">
   <div class="cta-band-content container-site">
     <h2 id="contact-cta-heading">{{ cta.heading }}</h2>
     <p>{{ cta.body }}</p>

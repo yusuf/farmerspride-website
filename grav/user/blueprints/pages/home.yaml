@@ -144,8 +144,6 @@ form:
                   type: text
                   label: Point Title
                   placeholder: 'e.g. Product Guidance'
-                  validate:
-                    required: true
                 .body:
                   type: textarea
                   label: Supporting Copy

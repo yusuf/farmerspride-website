@@ -13,11 +13,62 @@
 {% set services_list = services_page ? services_page.header.services : [] %}
 
 {% block content %}
+<style>
+  .navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(15, 34, 15, 0.08);
+    box-shadow: 0 4px 18px rgba(7, 26, 7, 0.08);
+  }
+  .navbar-link {
+    color: #1f2a1f;
+    border-bottom-color: transparent;
+  }
+  .navbar-link:hover {
+    color: #2d6a2d;
+    border-bottom-color: rgba(45, 106, 45, 0.45);
+  }
+  .navbar-link.active {
+    color: #2d6a2d;
+    border-bottom-color: #2d6a2d;
+  }
+  .navbar-contact-link {
+    color: #1f2a1f;
+  }
+  .navbar-contact-link:hover {
+    color: #2d6a2d;
+  }
+  .navbar-contact-divider {
+    color: rgba(15, 34, 15, 0.3);
+  }
+  .navbar-hamburger {
+    color: #1f2a1f;
+  }
+</style>
 
 {# ═══════════════════════════════════════════════════════════
    SECTION 1 — HERO
 ═══════════════════════════════════════════════════════════ #}
-{% set hero_img = h.hero.img ? page.media[h.hero.img].url|default(url('theme://images/hero-bg.jpg')) : url('theme://images/hero-bg.jpg') %}
+{% set hero_img = url('theme://images/hero-bg.jpg') %}
+{% set hero_media = h.hero.img ? page.media[h.hero.img] ?? null : null %}
+{% if hero_media %}
+  {% set hero_img = hero_media.url|default(hero_img) %}
+{% else %}
+  {% set hero_guess = null %}
+  {% for name, media in page.media.images %}
+    {% if hero_guess is null %}
+      {% set lower = name|lower %}
+      {% if 'hero' in lower or 'header' in lower or 'banner' in lower %}
+        {% set hero_guess = media %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {% if hero_guess is null and page.media.images|length %}
+    {% set hero_guess = page.media.images|first %}
+  {% endif %}
+  {% if hero_guess %}
+    {% set hero_img = hero_guess.url %}
+  {% endif %}
+{% endif %}
 <section class="hero" aria-label="Hero">
   <img src="{{ hero_img }}"
        alt=""
@@ -93,9 +144,22 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-6">
       {% for cat in categories|slice(0, 4) %}
       {% set cat_slug = cat.name|lower|replace({' ': '-', '&': 'and', "'": '', '/': '-', '.': ''}) %}
+      {% set cat_image_key = cat.image ?? cat.img %}
+      {% set cat_image_media = cat_image_key and products_page ? products_page.media[cat_image_key]|default(null) : null %}
+      {% set cat_img_url = cat_image_media ? cat_image_media.url : null %}
+      {% if not cat_img_url and cat_image_key %}
+        {% if '://' in cat_image_key %}
+          {% set cat_img_url = cat_image_key %}
+        {% else %}
+          {% set cat_img_url = url('theme://images/categories/' ~ cat_image_key) %}
+        {% endif %}
+      {% endif %}
+      {% if not cat_img_url %}
+        {% set cat_img_url = url('theme://images/hero-bg.jpg') %}
+      {% endif %}
       <div class="category-card">
         <div class="category-card-img-wrap">
-          <img src="{{ url('theme://images/categories/' ~ cat.img) }}"
+          <img src="{{ cat_img_url }}"
                alt="{{ cat.name }}"
                class="category-card-img"
                loading="lazy"
@@ -117,9 +181,22 @@
     <div class="category-row2 mt-5 md:mt-6">
       {% for cat in categories|slice(4) %}
       {% set cat_slug = cat.name|lower|replace({' ': '-', '&': 'and', "'": '', '/': '-', '.': ''}) %}
+      {% set cat_image_key = cat.image ?? cat.img %}
+      {% set cat_image_media = cat_image_key and products_page ? products_page.media[cat_image_key]|default(null) : null %}
+      {% set cat_img_url = cat_image_media ? cat_image_media.url : null %}
+      {% if not cat_img_url and cat_image_key %}
+        {% if '://' in cat_image_key %}
+          {% set cat_img_url = cat_image_key %}
+        {% else %}
+          {% set cat_img_url = url('theme://images/categories/' ~ cat_image_key) %}
+        {% endif %}
+      {% endif %}
+      {% if not cat_img_url %}
+        {% set cat_img_url = url('theme://images/hero-bg.jpg') %}
+      {% endif %}
       <div class="category-card category-row2-card">
         <div class="category-card-img-wrap">
-          <img src="{{ url('theme://images/categories/' ~ cat.img) }}"
+          <img src="{{ cat_img_url }}"
                alt="{{ cat.name }}"
                class="category-card-img"
                loading="lazy"
@@ -147,7 +224,7 @@
 {% if why %}
 <section class="section-alt why-agrolink-section" aria-labelledby="why-agrolink-heading">
   <div class="container-site">
-    <div class="why-agrolink-head">
+    <div class="why-agrolink-head text-center">
       {% if why.label %}<span class="section-label">{{ why.label }}</span>{% endif %}
       <h2 id="why-agrolink-heading" class="section-title-ruled">{{ why.heading|default('Why AgroLink') }}</h2>
       {% if why.intro %}
@@ -202,7 +279,29 @@
    SECTION 6 — CTA BAND
 ═══════════════════════════════════════════════════════════ #}
 {% set cta = h.cta_band %}
-{% set cta_img = cta.img ? page.media[cta.img].url|default(url('theme://images/cta-bg.jpg')) : url('theme://images/cta-bg.jpg') %}
+{% set cta_img = url('theme://images/cta-bg.jpg') %}
+{% set cta_media = cta.img ? page.media[cta.img] ?? null : null %}
+{% if cta_media %}
+  {% set cta_img = cta_media.url|default(cta_img) %}
+{% else %}
+  {% set cta_guess = null %}
+  {% for name, media in page.media.images %}
+    {% if cta_guess is null %}
+      {% set lower = name|lower %}
+      {% if 'cta' in lower or 'footer' in lower or 'band' in lower %}
+        {% set cta_guess = media %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  {% if cta_guess is null and page.media.images|length > 1 %}
+    {% set cta_guess = (page.media.images|last) %}
+  {% elseif cta_guess is null and page.media.images|length %}
+    {% set cta_guess = page.media.images|first %}
+  {% endif %}
+  {% if cta_guess %}
+    {% set cta_img = cta_guess.url %}
+  {% endif %}
+{% endif %}
 <section class="cta-band" aria-labelledby="cta-heading">
   <img src="{{ cta_img }}"
        alt=""

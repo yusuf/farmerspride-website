@@ -5,6 +5,37 @@
 {% set h   = page.header %}
 
 {% block content %}
+<style>
+  .navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(15, 34, 15, 0.08);
+    box-shadow: 0 4px 18px rgba(7, 26, 7, 0.08);
+  }
+  .navbar-link {
+    color: #1f2a1f;
+    border-bottom-color: transparent;
+  }
+  .navbar-link:hover {
+    color: #2d6a2d;
+    border-bottom-color: rgba(45, 106, 45, 0.45);
+  }
+  .navbar-link.active {
+    color: #2d6a2d;
+    border-bottom-color: #2d6a2d;
+  }
+  .navbar-contact-link {
+    color: #1f2a1f;
+  }
+  .navbar-contact-link:hover {
+    color: #2d6a2d;
+  }
+  .navbar-contact-divider {
+    color: rgba(15, 34, 15, 0.3);
+  }
+  .navbar-hamburger {
+    color: #1f2a1f;
+  }
+</style>
 
 {# ── Page hero ── #}
 {% set hero_img = h.hero.img ? page.media[h.hero.img].url|default(url('page://02.products/' ~ h.hero.img)) : url('theme://images/hero-products.jpg') %}
@@ -43,9 +74,31 @@
   {% for cat in h.categories %}
 
   {% set cat_slug = cat.name|lower|replace({' ': '-', '&': 'and', "'": '', '/': '-', '.': ''}) %}
+  {% set cat_image_key = cat.image ?? cat.img %}
+  {% set cat_image_media = cat_image_key ? page.media[cat_image_key]|default(null) : null %}
+  {% set cat_img_url = cat_image_media ? cat_image_media.url : null %}
+  {% if not cat_img_url and cat_image_key %}
+    {% if '://' in cat_image_key %}
+      {% set cat_img_url = cat_image_key %}
+    {% else %}
+      {% set cat_img_url = url('theme://images/categories/' ~ cat_image_key) %}
+    {% endif %}
+  {% endif %}
+  {% if not cat_img_url %}
+    {% set cat_img_url = url('theme://images/hero-bg.jpg') %}
+  {% endif %}
   <section id="cat-{{ cat_slug }}" class="category-section" aria-labelledby="cat-{{ cat_slug }}-heading">
     <div class="container-site">
       <div class="w-full">
+
+        {% if cat_img_url %}
+        <div class="category-section-img mb-5">
+          <img src="{{ cat_img_url }}"
+               alt="{{ cat.name }} illustrative photo"
+               loading="lazy"
+               onerror="this.style.display='none'">
+        </div>
+        {% endif %}
 
         {# Coming soon notice #}
         {% if cat.coming_soon %}

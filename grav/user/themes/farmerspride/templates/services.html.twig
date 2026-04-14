@@ -10,6 +10,36 @@
 {% set services_subtitle = h.services_subtitle|default('Every service points customers straight to a phone call or WhatsApp chat.') %}
 
 <style>
+  .navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(15, 34, 15, 0.08);
+    box-shadow: 0 4px 18px rgba(7, 26, 7, 0.08);
+  }
+  .navbar-link {
+    color: #1f2a1f;
+    border-bottom-color: transparent;
+  }
+  .navbar-link:hover {
+    color: #2d6a2d;
+    border-bottom-color: rgba(45, 106, 45, 0.45);
+  }
+  .navbar-link.active {
+    color: #2d6a2d;
+    border-bottom-color: #2d6a2d;
+  }
+  .navbar-contact-link {
+    color: #1f2a1f;
+  }
+  .navbar-contact-link:hover {
+    color: #2d6a2d;
+  }
+  .navbar-contact-divider {
+    color: rgba(15, 34, 15, 0.3);
+  }
+  .navbar-hamburger {
+    color: #1f2a1f;
+  }
+
   .page-hero--services { min-height: 360px; }
   @media (min-width: 768px) { .page-hero--services { min-height: 420px; } }
   @media (min-width: 1024px) { .page-hero--services { min-height: 480px; } }

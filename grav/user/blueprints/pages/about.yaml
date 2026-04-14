@@ -217,6 +217,12 @@ form:
               rows: 2
               placeholder: 'We do not just sell products. We help you use them well.'
 
+            header.belief.img:
+              type: pagemediaselect
+              label: Background Image
+              help: 'Optional background image for the belief CTA panel. Upload via the Media tab.'
+              preview_images: true
+
             header.belief.cta_primary:
               type: text
               label: Primary Button Label

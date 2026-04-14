@@ -198,6 +198,12 @@ form:
               label: Body Text
               placeholder: 'Right products. Clear guidance. Reliable supply.'
 
+            header.cta_band.img:
+              type: pagemediaselect
+              label: Background Image
+              help: 'Upload via the Media tab. Leave blank to use the default CTA texture.'
+              preview_images: true
+
             header.cta_band.cta_call:
               type: text
               label: Call Button Label
