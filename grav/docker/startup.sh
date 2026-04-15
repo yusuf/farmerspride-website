@@ -7,12 +7,10 @@ cat > /usr/local/etc/php-fpm.d/www.conf << 'EOF'
 user = www-data
 group = www-data
 listen = 127.0.0.1:9000
-pm = dynamic
-pm.max_children = 20
-pm.start_servers = 4
-pm.min_spare_servers = 2
-pm.max_spare_servers = 6
-pm.max_requests = 500
+pm = ondemand
+pm.max_children = 5
+pm.process_idle_timeout = 10s
+pm.max_requests = 200
 EOF
 
 # ── Ensure writable Grav directories ──────────────────────────────
@@ -66,9 +64,13 @@ EOF2
     fi
 fi
 
-# ── Clear Grav cache on startup ────────────────────────────────────
-su -s /bin/sh www-data -c \
-    "php /var/www/html/bin/grav clearcache" 2>/dev/null || true
+# ── Clear Grav cache on startup (first run only) ──────────────────
+CACHE_CLEARED_FLAG="/var/www/html/cache/.startup-cleared"
+if [ ! -f "$CACHE_CLEARED_FLAG" ]; then
+    su -s /bin/sh www-data -c \
+        "php /var/www/html/bin/grav clearcache" 2>/dev/null || true
+    touch "$CACHE_CLEARED_FLAG"
+fi
 
 chown -R www-data:www-data \
     /var/www/html/cache \
